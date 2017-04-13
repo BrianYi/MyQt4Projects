@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "spreadsheet", "spreadsheet\spreadsheet.vcxproj", "{298356FF-7511-4B5F-9477-32E4119A90F3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HexSpinBox", "HexSpinBox\HexSpinBox.vcxproj", "{E04A03FF-5618-402B-89B3-242A31787B92}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IconEditor", "IconEditor\IconEditor.vcxproj", "{E4E0D12A-BB20-4174-AA76-5F6D3F54076E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SnakeGame", "SnakeGame\SnakeGame.vcxproj", "{57D20C46-145F-4497-9494-4AC090DC936F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyPlotter", "MyPlotter\MyPlotter.vcxproj", "{E8E6427A-6A22-4B4D-B620-F7DED83E1A46}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plotter", "Plotter\Plotter.vcxproj", "{7F957EF4-D948-40A5-B2CE-00F98767E823}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{298356FF-7511-4B5F-9477-32E4119A90F3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{298356FF-7511-4B5F-9477-32E4119A90F3}.Debug|Win32.Build.0 = Debug|Win32
+		{298356FF-7511-4B5F-9477-32E4119A90F3}.Release|Win32.ActiveCfg = Release|Win32
+		{298356FF-7511-4B5F-9477-32E4119A90F3}.Release|Win32.Build.0 = Release|Win32
+		{E04A03FF-5618-402B-89B3-242A31787B92}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E04A03FF-5618-402B-89B3-242A31787B92}.Debug|Win32.Build.0 = Debug|Win32
+		{E04A03FF-5618-402B-89B3-242A31787B92}.Release|Win32.ActiveCfg = Release|Win32
+		{E04A03FF-5618-402B-89B3-242A31787B92}.Release|Win32.Build.0 = Release|Win32
+		{E4E0D12A-BB20-4174-AA76-5F6D3F54076E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E4E0D12A-BB20-4174-AA76-5F6D3F54076E}.Debug|Win32.Build.0 = Debug|Win32
+		{E4E0D12A-BB20-4174-AA76-5F6D3F54076E}.Release|Win32.ActiveCfg = Release|Win32
+		{E4E0D12A-BB20-4174-AA76-5F6D3F54076E}.Release|Win32.Build.0 = Release|Win32
+		{57D20C46-145F-4497-9494-4AC090DC936F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{57D20C46-145F-4497-9494-4AC090DC936F}.Debug|Win32.Build.0 = Debug|Win32
+		{57D20C46-145F-4497-9494-4AC090DC936F}.Release|Win32.ActiveCfg = Release|Win32
+		{57D20C46-145F-4497-9494-4AC090DC936F}.Release|Win32.Build.0 = Release|Win32
+		{E8E6427A-6A22-4B4D-B620-F7DED83E1A46}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E8E6427A-6A22-4B4D-B620-F7DED83E1A46}.Debug|Win32.Build.0 = Debug|Win32
+		{E8E6427A-6A22-4B4D-B620-F7DED83E1A46}.Release|Win32.ActiveCfg = Release|Win32
+		{E8E6427A-6A22-4B4D-B620-F7DED83E1A46}.Release|Win32.Build.0 = Release|Win32
+		{7F957EF4-D948-40A5-B2CE-00F98767E823}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7F957EF4-D948-40A5-B2CE-00F98767E823}.Debug|Win32.Build.0 = Debug|Win32
+		{7F957EF4-D948-40A5-B2CE-00F98767E823}.Release|Win32.ActiveCfg = Release|Win32
+		{7F957EF4-D948-40A5-B2CE-00F98767E823}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

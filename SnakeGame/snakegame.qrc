@@ -1,0 +1,11 @@
+<RCC>
+    <qresource>
+        <file>images/food.png</file>
+        <file>images/head-right.png</file>
+        <file>images/head-left.png</file>
+        <file>images/head-up.png</file>
+        <file>images/head-down.png</file>
+        <file>images/body.png</file>
+        <file>images/background.jpg</file>
+    </qresource>
+</RCC>
