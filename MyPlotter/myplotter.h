@@ -20,9 +20,7 @@ public:
 	void createLayout();
 	int curFormulaType() const { return formulaComboBox->currentIndex(); }
 	QSize minimumSizeHint() const;
-	QSize sizeHint() const;
 private:
-	enum { Margin = 50 };
 	QLabel *coordSysLabel;
 	QComboBox *coordSysComboBox;
 	QLabel *formulaLabel;
@@ -31,10 +29,10 @@ private:
 	QLineEdit *xLineEdit;
 	QLabel *yLabel;
 	QLineEdit *yLineEdit;
-	QLabel *dxLabel;
-	QLineEdit *dxLineEdit;
-	QLabel *dyLabel;
-	QLineEdit *dyLineEdit;
+	QLabel *numXTicksLabel;
+	QLineEdit *numXTicksLineEdit;
+	QLabel *numYTicksLabel;
+	QLineEdit *numYTicksLineEdit;
 	Plotter *plotter;
 };
 
