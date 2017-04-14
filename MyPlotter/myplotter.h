@@ -21,14 +21,21 @@ public:
 	int curFormulaType() const { return formulaComboBox->currentIndex(); }
 	QSize minimumSizeHint() const;
 private:
+	QRegExpValidator *realValidator;
+	QRegExpValidator *nonegRealValidator;
+	QRegExpValidator *nonegDigitalValidator;
 	QLabel *coordSysLabel;
 	QComboBox *coordSysComboBox;
 	QLabel *formulaLabel;
 	QComboBox *formulaComboBox;
 	QLabel *xLabel;
-	QLineEdit *xLineEdit;
+	QLineEdit *xMinLineEdit;
+	QLabel *xlb;
+	QLineEdit *xMaxLineEdit;
 	QLabel *yLabel;
-	QLineEdit *yLineEdit;
+	QLineEdit *yMinLineEdit;
+	QLabel *ylb;
+	QLineEdit *yMaxLineEdit;
 	QLabel *numXTicksLabel;
 	QLineEdit *numXTicksLineEdit;
 	QLabel *numYTicksLabel;

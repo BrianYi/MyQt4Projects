@@ -9,7 +9,7 @@ MyPlotter::MyPlotter(QWidget *parent)
 
 void MyPlotter::createComponents()
 {
-	coordSysLabel = new QLabel(tr("coordinate system: "), this);
+	coordSysLabel = new QLabel(tr("coordinate system:"), this);
     coordSysLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     //coordSysLabel->setFixedSize(coordSysLabel->sizeHint());
 	coordSysComboBox = new QComboBox(this);
@@ -28,41 +28,59 @@ void MyPlotter::createComponents()
     formulaComboBox->setFixedWidth(150);
     //formulaComboBox->setFixedSize(formulaComboBox->sizeHint());
 
-    QRegExpValidator *validator = new QRegExpValidator(QRegExp("(\\d{1,3})(.\\d{2})\\?"), this);
-	xLabel = new QLabel(tr("x-axis width: "), this);
+	realValidator = new QRegExpValidator(QRegExp("^(-{0,1}\\d{1,3})(.\\d{2})\\?$"), this);
+	nonegRealValidator = new QRegExpValidator(QRegExp("^(\\d{1,3})(.\\d{2})\\?$"), this);
+	nonegDigitalValidator = new QRegExpValidator(QRegExp("\\d{1,3}"), this);
+	xLabel = new QLabel(tr("x-axis range from:"), this);
     xLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     //xLabel->setFixedSize(xLabel->sizeHint());
-	xLineEdit = new QLineEdit(this);
-    xLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    xLineEdit->setFixedWidth(50);
-	xLineEdit->setValidator(validator);
+	xMinLineEdit = new QLineEdit(this);
+    xMinLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    xMinLineEdit->setFixedWidth(50);
+	xMinLineEdit->setValidator(realValidator);
     //xLineEdit->setFixedWidth(Margin);
+	
+	xlb = new QLabel(tr("to"));
+	xlb->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
-	yLabel = new QLabel(tr("y-axis width: "), this);
+	xMaxLineEdit = new QLineEdit(this);
+	xMaxLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+	xMaxLineEdit->setFixedWidth(50);
+	xMaxLineEdit->setValidator(realValidator);
+
+	yLabel = new QLabel(tr("y-axis range from:"), this);
     yLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     //yLabel->setFixedSize(yLabel->sizeHint());
-	yLineEdit = new QLineEdit(this);
-    yLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    yLineEdit->setFixedWidth(50);
-	yLineEdit->setValidator(validator);
+	yMinLineEdit = new QLineEdit(this);
+    yMinLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    yMinLineEdit->setFixedWidth(50);
+	yMinLineEdit->setValidator(realValidator);
     //yLineEdit->setFixedWidth(Margin);
 
-	numXTicksLabel = new QLabel(tr("num ticks(x-axis): "), this);
+	ylb = new QLabel(tr("to"));
+	ylb->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+	yMaxLineEdit = new QLineEdit(this);
+	yMaxLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+	yMaxLineEdit->setFixedWidth(50);
+	yMaxLineEdit->setValidator(realValidator);
+
+	numXTicksLabel = new QLabel(tr("num ticks(x-axis):"), this);
     numXTicksLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     //numXTicksLabel->setFixedSize(numXTicksLabel->sizeHint());
 	numXTicksLineEdit = new QLineEdit(this);
     numXTicksLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     numXTicksLineEdit->setFixedWidth(50);
-	numXTicksLineEdit->setValidator(validator);
+	numXTicksLineEdit->setValidator(nonegDigitalValidator);
     //numXTicksLineEdit->setFixedWidth(Margin);
 
-	numYTicksLabel = new QLabel(tr("num ticks(y-axis): "), this);
+	numYTicksLabel = new QLabel(tr("num ticks(y-axis):"), this);
     numYTicksLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     //numYTicksLabel->setFixedSize(numYTicksLabel->sizeHint());
 	numYTicksLineEdit = new QLineEdit(this);
     numYTicksLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     numYTicksLineEdit->setFixedWidth(50);
-	numYTicksLineEdit->setValidator(validator);
+	numYTicksLineEdit->setValidator(nonegDigitalValidator);
     //numYTicksLineEdit->setFixedWidth(Margin);
 
 	plotter = new Plotter(this);
@@ -89,11 +107,15 @@ void MyPlotter::createLayout()
 	
 	QHBoxLayout *xHLayout = new QHBoxLayout;
 	xHLayout->addWidget(xLabel);
-	xHLayout->addWidget(xLineEdit);
+	xHLayout->addWidget(xMinLineEdit);
+	xHLayout->addWidget(xlb);
+	xHLayout->addWidget(xMaxLineEdit);
 
 	QHBoxLayout *yHLayout = new QHBoxLayout;
 	yHLayout->addWidget(yLabel);
-	yHLayout->addWidget(yLineEdit);
+	yHLayout->addWidget(yMinLineEdit);
+	yHLayout->addWidget(ylb);
+	yHLayout->addWidget(yMaxLineEdit);
 
 	QHBoxLayout *dxHLayout = new QHBoxLayout;
 	dxHLayout->addWidget(numXTicksLabel);
@@ -127,6 +149,8 @@ void MyPlotter::createLayout()
 	mainLayout->addLayout(settingLayout);
 	mainLayout->addLayout(plotterLayout);
     
+	coordSysGroupBox->setFixedWidth(coordSysGroupBox->sizeHint().width());
+	xyGroupBox->setFixedWidth(xyGroupBox->sizeHint().width());
 	setLayout(mainLayout);
 }
 
