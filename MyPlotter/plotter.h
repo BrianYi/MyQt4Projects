@@ -16,6 +16,16 @@ public:
     enum FormulaType {
         SinX, CosX, TanX
     };
+	enum DrawAxisType {
+		DrawNone = 0x00000000,
+		DrawXAxis = 0x00000001, 
+		DrawYAxis = 0x00000002, 
+		DrawXYAxis = 0x00000003,
+		DrawLFrameAxis = 0x00000004,
+		DrawRFrameAxis = 0x00000008,
+		DrawUFrameAxis = 0x00000010,
+		DrawDFrameAxis = 0x00000020
+	};
 public:
 	Plotter(QWidget *parent = 0);
     void drawGrid(QPainter *painter);
@@ -29,6 +39,7 @@ public:
 	QSize minimumSizeHint() const;
 protected:
     void paintEvent(QPaintEvent *event); 
+	void calculatePoints();
 private:
     enum { Margin = 50 };
 	int curCoordSysType;
@@ -39,6 +50,11 @@ private:
     double maxY;
     int numXTicks;
     int numYTicks;
+	int numXGrid;
+	int numYGrid;
+	QVector<double> xVec;
+	QVector<double> yVec;
+	QVector<QPointF> curveData;
 };
 
 #endif // PLOTTER_H

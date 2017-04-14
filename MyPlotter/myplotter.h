@@ -40,6 +40,10 @@ private:
 	QLineEdit *numXTicksLineEdit;
 	QLabel *numYTicksLabel;
 	QLineEdit *numYTicksLineEdit;
+	QLabel *numGridLabel;
+	QLabel *gridLabel;
+	QLineEdit *numXGridLineEdit;
+	QLineEdit *numYGridLineEdit;
 	Plotter *plotter;
 };
 

@@ -36,7 +36,7 @@ void MyPlotter::createComponents()
     //xLabel->setFixedSize(xLabel->sizeHint());
 	xMinLineEdit = new QLineEdit(this);
     xMinLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    xMinLineEdit->setFixedWidth(50);
+    xMinLineEdit->setFixedWidth(30);
 	xMinLineEdit->setValidator(realValidator);
     //xLineEdit->setFixedWidth(Margin);
 	
@@ -45,7 +45,7 @@ void MyPlotter::createComponents()
 
 	xMaxLineEdit = new QLineEdit(this);
 	xMaxLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-	xMaxLineEdit->setFixedWidth(50);
+	xMaxLineEdit->setFixedWidth(30);
 	xMaxLineEdit->setValidator(realValidator);
 
 	yLabel = new QLabel(tr("y-axis range from:"), this);
@@ -53,7 +53,7 @@ void MyPlotter::createComponents()
     //yLabel->setFixedSize(yLabel->sizeHint());
 	yMinLineEdit = new QLineEdit(this);
     yMinLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    yMinLineEdit->setFixedWidth(50);
+    yMinLineEdit->setFixedWidth(30);
 	yMinLineEdit->setValidator(realValidator);
     //yLineEdit->setFixedWidth(Margin);
 
@@ -62,7 +62,7 @@ void MyPlotter::createComponents()
 
 	yMaxLineEdit = new QLineEdit(this);
 	yMaxLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-	yMaxLineEdit->setFixedWidth(50);
+	yMaxLineEdit->setFixedWidth(30);
 	yMaxLineEdit->setValidator(realValidator);
 
 	numXTicksLabel = new QLabel(tr("num ticks(x-axis):"), this);
@@ -82,6 +82,22 @@ void MyPlotter::createComponents()
     numYTicksLineEdit->setFixedWidth(50);
 	numYTicksLineEdit->setValidator(nonegDigitalValidator);
     //numYTicksLineEdit->setFixedWidth(Margin);
+
+	numGridLabel = new QLabel(tr("grid size is:"), this);
+	numGridLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+	
+	gridLabel = new QLabel(tr("x"), this);
+	gridLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+	numXGridLineEdit = new QLineEdit(this);
+	numXGridLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+	numXGridLineEdit->setFixedWidth(30);
+	numXGridLineEdit->setValidator(nonegDigitalValidator);
+
+	numYGridLineEdit = new QLineEdit(this);
+	numYGridLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+	numYGridLineEdit->setFixedWidth(30);
+	numYGridLineEdit->setValidator(nonegDigitalValidator);
 
 	plotter = new Plotter(this);
 }
@@ -117,19 +133,26 @@ void MyPlotter::createLayout()
 	yHLayout->addWidget(ylb);
 	yHLayout->addWidget(yMaxLineEdit);
 
-	QHBoxLayout *dxHLayout = new QHBoxLayout;
-	dxHLayout->addWidget(numXTicksLabel);
-	dxHLayout->addWidget(numXTicksLineEdit);
+	QHBoxLayout *numXTicksHLayout = new QHBoxLayout;
+	numXTicksHLayout->addWidget(numXTicksLabel);
+	numXTicksHLayout->addWidget(numXTicksLineEdit);
 
-	QHBoxLayout *dyHLayout = new QHBoxLayout;
-	dyHLayout->addWidget(numYTicksLabel);
-	dyHLayout->addWidget(numYTicksLineEdit);
+	QHBoxLayout *numYTicksHLayout = new QHBoxLayout;
+	numYTicksHLayout->addWidget(numYTicksLabel);
+	numYTicksHLayout->addWidget(numYTicksLineEdit);
+
+	QHBoxLayout *numGridHLayout = new QHBoxLayout;
+	numGridHLayout->addWidget(numGridLabel);
+	numGridHLayout->addWidget(numXGridLineEdit);
+	numGridHLayout->addWidget(gridLabel);
+	numGridHLayout->addWidget(numYGridLineEdit);
 
 	QVBoxLayout *xyVLayout = new QVBoxLayout;
 	xyVLayout->addLayout(xHLayout);
 	xyVLayout->addLayout(yHLayout);
-	xyVLayout->addLayout(dxHLayout);
-	xyVLayout->addLayout(dyHLayout);
+	xyVLayout->addLayout(numXTicksHLayout);
+	xyVLayout->addLayout(numYTicksHLayout);
+	xyVLayout->addLayout(numGridHLayout);
 
 	QGroupBox *xyGroupBox = new QGroupBox;
 	xyGroupBox->setTitle(tr("X-Y Aisle Setting"));
