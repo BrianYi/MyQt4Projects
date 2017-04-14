@@ -18,8 +18,33 @@ public:
 	MyPlotter(QWidget *parent = 0);
 	void createComponents();
 	void createLayout();
+    void createConnections();
 	int curFormulaType() const { return formulaComboBox->currentIndex(); }
 	QSize minimumSizeHint() const;
+signals:
+    void setMinX(const QString &);
+    void setMaxX(const QString &);
+    void setMinY(const QString &);
+    void setMaxY(const QString &);
+    void setNumXTicks(const QString &);
+    void setNumYTicks(const QString &);
+    void setNumXGrid(const QString &);
+    void setNumYGrid(const QString &);
+    void setCoordSysType(int coordSysType);
+    void setFormulaType(int formulaType);
+    void setCurveSmoothLevelType(int curveSmoothLvlType);
+protected slots:
+    void minXChanged(const QString &strMinX);
+    void maxXChanged(const QString &strMaxX);
+    void minYChanged(const QString &strMinY);
+    void maxYChanged(const QString &strMaxY);
+    void numXTicksChanged(const QString &strNumXTicks);
+    void numYTicksChanged(const QString &strNumYTicks);
+    void numXGridChanged(const QString &strNumXGrid);
+    void numYGridChanged(const QString &strNumYGrid);
+    void coordSysTypeChanged(int coordSysType);
+    void formulaTypeChanged(int formulaType);
+    void curveSmoothLevelTypeChanged(int index);
 private:
 	QRegExpValidator *realValidator;
 	QRegExpValidator *nonegRealValidator;
@@ -44,6 +69,8 @@ private:
 	QLabel *gridLabel;
 	QLineEdit *numXGridLineEdit;
 	QLineEdit *numYGridLineEdit;
+    QLabel *curveSmoothLvlLabel;
+    QComboBox *curveSmoothLvlComboBox;
 	Plotter *plotter;
 };
 
