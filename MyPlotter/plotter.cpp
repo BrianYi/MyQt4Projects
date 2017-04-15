@@ -6,8 +6,8 @@ Plotter::Plotter(QWidget *parent)
     curCoordSysType = Cartesian;
     curFormulaType = SinX;
     curCurveSmoothLevelType = SmoothLevel0;
-	minX = -10/*-10.0*/;
-	minY = -10/*-10.0*/;
+	minX = -10.0;
+	minY = -10.0;
     maxX = 10.0;
     maxY = 10.0;
     numXTicks = 20;
@@ -46,41 +46,6 @@ void Plotter::calculatePoints()
         double y = rect.bottom() - (dy * (rect.height() - 1) / spany);
         polyline->push_back(QPointF(x, y));
     }
-
-// 	switch (curFormulaType) {
-// 	case SinX:
-// 		{
-// 			for (int i = 0; i <= numXTicks; i++) {
-//                 double valX = minX + i * spanx / numXTicks;
-//                 double valY = sinf(valX);
-//                 double dx = valX - minX;
-//                 double dy = valY - minY;
-//                 double x = rect.left() + (dx * (rect.width() - 1) / spanx);
-//                 double y = rect.bottom() - (dy * (rect.height() - 1) / spany);
-//                 polyline->push_back(QPointF(x, y));
-// 			}
-// 			break;
-// 		}
-// 	case CosX:
-// 		{
-//             for (int i = 0; i <= numXTicks; i++) {
-//                 double valX = minX + i * spanx / numXTicks;
-//                 double valY = cosf(valX);
-//                 double dx = valX - minX;
-//                 double dy = valY - minY;
-//                 double x = rect.left() + (dx * (rect.width() - 1) / spanx);
-//                 double y = rect.bottom() - (dy * (rect.height() - 1) / spany);
-//                 polyline->push_back(QPointF(x, y));
-//             }
-// 			break;
-// 		}
-// 	case TanX:
-// 		{
-// 			break;
-// 		}
-// 	default:
-// 		break;
-// 	}
 }
 
 
@@ -123,12 +88,10 @@ void Plotter::drawGrid(QPainter *painter)
 	painter->setClipRect(rect.adjusted(+1,+1,-1,-1));
 
 	int drawAxisType = DrawNone;
-	if (minY * maxY < 0/* && (minX > 0 || abs(minX) < EPSION)*/)
+	if (minY * maxY < 0)
 		drawAxisType |= DrawXAxis;
-	if (minX * maxX < 0/* && (minY > 0 || abs(minY) < EPSION)*/)
+	if (minX * maxX < 0)
 		drawAxisType |= DrawYAxis;
-// 	if (minX * maxX < 0 && minY * maxY < 0)
-// 		drawAxisType |= DrawXYAxis;
     if (minX > 0 || abs(minX) < EPSION)
         drawAxisType |= DrawLFrameAxis;
     if (maxX < 0 || abs(maxX) < EPSION)
@@ -137,14 +100,6 @@ void Plotter::drawGrid(QPainter *painter)
         drawAxisType |= DrawDFrameAxis;
     if (maxY < 0 || abs(maxY) < EPSION)
         drawAxisType |= DrawUFrameAxis;
-// 	else if ((minX > 0 || abs(minX) < EPSION) && (minY > 0 || abs(minY) < EPSION))
-// 		drawAxisType = DrawLFrameAxis | DrawDFrameAxis;
-// 	else if ((maxX < 0 || abs(maxX) < EPSION) && (minY > 0 || abs(minY) < EPSION))
-// 		drawAxisType = DrawRFrameAxis | DrawDFrameAxis;
-// 	else if ((maxX < 0 || abs(maxX) < EPSION) && (maxY < 0 || abs(maxY) < EPSION))
-// 		drawAxisType = DrawRFrameAxis | DrawUFrameAxis;
-// 	else if ((minX > 0 || abs(minX) < EPSION) && (maxY < 0 || abs(maxY) < EPSION))
-// 		drawAxisType = DrawLFrameAxis | DrawUFrameAxis;
 
 
 
@@ -153,7 +108,6 @@ void Plotter::drawGrid(QPainter *painter)
 	painter->setPen(Qt::black);
 	
 	if (drawAxisType & DrawXAxis) {
-		//oY = rect.bottom() - abs(minY) * (rect.height() - 1) / spany;
 		painter->drawLine(rect.left(), oY, rect.right(), oY);
 		for (int i = 0; i <= numXTicks; i++) {
 			int x = rect.left() + (i * (rect.width() - 1) / numXTicks);
@@ -170,7 +124,6 @@ void Plotter::drawGrid(QPainter *painter)
 	}
 
 	if (drawAxisType & DrawYAxis) {
-		//oX = rect.left() + abs(minX) * (rect.width() - 1) / spanx;
 		painter->drawLine(oX, rect.top(), oX, rect.bottom());
 		for (int j = 0; j <= numYTicks; j++) {
 			int y = rect.top() + (j * (rect.height() - 1) / numYTicks);
@@ -292,7 +245,6 @@ void Plotter::setMinX(const QString &strMinX)
     bool ok;
     minX = strMinX.toDouble(&ok);
     if (!ok) {
-        QMessageBox::warning(this, "Warning",  QString(__FILE__) + QString(__LINE__));
         return ;
     }
     update();
@@ -303,7 +255,6 @@ void Plotter::setMaxX(const QString &strMaxX)
     bool ok;
     maxX = strMaxX.toDouble(&ok);
     if (!ok) {
-        QMessageBox::warning(this, "Warning",  QString(__FILE__) + QString(__LINE__));
         return ;
     }
     update();
@@ -314,7 +265,6 @@ void Plotter::setMinY(const QString &strMinY)
     bool ok;
     minY = strMinY.toDouble(&ok);
     if (!ok) {
-        QMessageBox::warning(this, "Warning",  QString(__FILE__) + QString(__LINE__));
         return ;
     }
     update();
@@ -325,7 +275,6 @@ void Plotter::setMaxY(const QString &strMaxY)
     bool ok;
     maxY = strMaxY.toDouble(&ok);
     if (!ok) {
-        QMessageBox::warning(this, "Warning",  QString(__FILE__) + QString(__LINE__));
         return ;
     }
     update();
@@ -336,7 +285,6 @@ void Plotter::setNumXTicks(const QString &strNumXTicks)
     bool ok;
     numXTicks = strNumXTicks.toInt(&ok);
     if (!ok) {
-        QMessageBox::warning(this, "Warning",  QString(__FILE__) + QString(__LINE__));
         return ;
     }
     update();
@@ -347,7 +295,6 @@ void Plotter::setNumYTicks(const QString &strNumYTicks)
     bool ok;
     numYTicks = strNumYTicks.toInt(&ok);
     if (!ok) {
-        QMessageBox::warning(this, "Warning",  QString(__FILE__) + QString(__LINE__));
         return ;
     }
     update();
@@ -358,7 +305,6 @@ void Plotter::setNumXGrid(const QString &strNumXGrid)
     bool ok;
     numXGrid = strNumXGrid.toInt(&ok);
     if (!ok) {
-        QMessageBox::warning(this, "Warning",  QString(__FILE__) + QString(__LINE__));
         return ;
     }
     update();
@@ -369,7 +315,6 @@ void Plotter::setNumYGrid(const QString &strNumYGrid)
     bool ok;
     numYGrid = strNumYGrid.toInt(&ok);
     if (!ok) {
-        QMessageBox::warning(this, "Warning",  QString(__FILE__) + QString(__LINE__));
         return ;
     }
     update();
