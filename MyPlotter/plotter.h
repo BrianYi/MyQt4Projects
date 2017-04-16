@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QtGui>
+#include "PlotterSetting.h"
 
 #define EPSION 0.0001
 
@@ -42,13 +43,16 @@ public:
     };
 public:
 	Plotter(QWidget *parent = 0);
-    void drawGrid(QPainter *painter);
-    void drawCurves(QPainter *painter);
+    void drawGrid(QPainter *painter, const QRect &rect);
+    void drawCurves(QPainter *painter, const QRect &rect);
+    void drawRubberBandRect(QPainter *painter, const QRect &rect);
+    void drawPoint(QPainter *painter, const QRect &rect);
     int coordSysType() const { return curCoordSysType; }
     int formulaType() const { return  curFormulaType; }
-	double spanX() const { return maxX - minX; }
-	double spanY() const { return maxY - minY; }
+// 	double spanX() const { return plotterSetting.spanX(); }
+// 	double spanY() const { return plotterSetting.spanY(); }
 	QSize minimumSizeHint() const;
+    QSize sizeHint() const;
 public slots:
     void setMinX(const QString &strMinX);
     void setMaxX(const QString &strMaxX);
@@ -61,24 +65,42 @@ public slots:
     void setCoordSysType(int coordSysType);
     void setFormulaType(int formulaType);
     void setCurveSmoothLevelType(int curveSmoothLvlType);
+    void setCurveWidth(const QString &strWidth);
+    void setPieRadius(const QString &strRadius);
+    void zoomIn();
+    void zoomOut();
 protected:
     void paintEvent(QPaintEvent *event); 
-	void calculatePoints();
-    double calculate(const double &val);
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void wheelEvent(QWheelEvent *event);
+    void resizeEvent(QResizeEvent *event);
+private:
+	void calculatePoints(const QRect &rect);
+    double calculate(const double &x);
+    void updateRubberBandRegion();
+    void updatePieRectRegion();
+    QPointF pointValue(const int &x, const int &y, bool *finded = 0) const;
+    QPoint pointPos(const double &valX, const double &valY, bool *finded = 0) const;
 private:
     enum { Margin = 50 };
 	int curCoordSysType;
     int curFormulaType;
     int curCurveSmoothLevelType;
-	double minX;
-	double minY;
-    double maxX;
-    double maxY;
-    int numXTicks;
-    int numYTicks;
-	int numXGrid;
-    int numYGrid;
-	QPolygonF *polyline;
+    int curZoom;
+    bool rubberBandIsShown;
+    QRect rubberBandRect;
+    bool pieIsShown;
+    QRect pieRect;
+    QPoint pieO;
+    int pieRadius;
+    int curveWidth;
+	QVector<PlotterSetting> zoomStack;
+	QPolygon *polyline;
+    QVector<QPointF> curveData;
+    QToolButton *zoomInButton;
+    QToolButton *zoomOutButton;
 };
 
 #endif // PLOTTER_H

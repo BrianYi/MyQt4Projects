@@ -19,6 +19,7 @@ MyPlotter::MyPlotter(QWidget *parent)
 	createComponents();
 	createLayout();
     createConnections();
+    createInitialValues();
 }
 
 void MyPlotter::createComponents()
@@ -52,7 +53,7 @@ void MyPlotter::createComponents()
     xMinLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     xMinLineEdit->setFixedWidth(50);
 	xMinLineEdit->setValidator(realValidator);
-    xMinLineEdit->setText("-10.00");
+    //xMinLineEdit->setText("-10.00");
     //xLineEdit->setFixedWidth(Margin);
 	
 	xlb = new QLabel(tr("to"));
@@ -62,7 +63,7 @@ void MyPlotter::createComponents()
 	xMaxLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 	xMaxLineEdit->setFixedWidth(50);
 	xMaxLineEdit->setValidator(realValidator);
-    xMaxLineEdit->setText("10.00");
+    //xMaxLineEdit->setText("10.00");
 
 	yLabel = new QLabel(tr("y-axis range from:"), this);
     yLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -72,7 +73,7 @@ void MyPlotter::createComponents()
     yMinLineEdit->setFixedWidth(50);
 	yMinLineEdit->setValidator(realValidator);
     //yLineEdit->setFixedWidth(Margin);
-    yMinLineEdit->setText("-10.00");
+    //yMinLineEdit->setText("-10.00");
 
 	ylb = new QLabel(tr("to"));
 	ylb->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
@@ -81,7 +82,7 @@ void MyPlotter::createComponents()
 	yMaxLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 	yMaxLineEdit->setFixedWidth(50);
 	yMaxLineEdit->setValidator(realValidator);
-    yMaxLineEdit->setText("10.00");
+    //yMaxLineEdit->setText("10.00");
 
 	numXTicksLabel = new QLabel(tr("num ticks(x-axis):"), this);
     numXTicksLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -91,7 +92,7 @@ void MyPlotter::createComponents()
     numXTicksLineEdit->setFixedWidth(50);
 	numXTicksLineEdit->setValidator(nonegDigitalValidator);
     //numXTicksLineEdit->setFixedWidth(Margin);
-    numXTicksLineEdit->setText("20");
+    //numXTicksLineEdit->setText("20");
 
 	numYTicksLabel = new QLabel(tr("num ticks(y-axis):"), this);
     numYTicksLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -101,7 +102,7 @@ void MyPlotter::createComponents()
     numYTicksLineEdit->setFixedWidth(50);
 	numYTicksLineEdit->setValidator(nonegDigitalValidator);
     //numYTicksLineEdit->setFixedWidth(Margin);
-    numYTicksLineEdit->setText("20");
+    //numYTicksLineEdit->setText("20");
 
 	numGridLabel = new QLabel(tr("grid size is:"), this);
 	numGridLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -113,13 +114,13 @@ void MyPlotter::createComponents()
 	numXGridLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 	numXGridLineEdit->setFixedWidth(30);
 	numXGridLineEdit->setValidator(nonegDigitalValidator);
-    numXGridLineEdit->setText("40");
+    //numXGridLineEdit->setText("40");
 
 	numYGridLineEdit = new QLineEdit(this);
 	numYGridLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 	numYGridLineEdit->setFixedWidth(30);
 	numYGridLineEdit->setValidator(nonegDigitalValidator);
-    numYGridLineEdit->setText("40");
+    //numYGridLineEdit->setText("40");
 
     curveSmoothLvlLabel = new QLabel(tr("curve smooth level:"), this);
     curveSmoothLvlLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -131,6 +132,22 @@ void MyPlotter::createComponents()
     }
     curveSmoothLvlComboBox->addItems(curveSmoothLvlList);
     curveSmoothLvlComboBox->setFixedWidth(150);
+
+    curveWidthLabel = new QLabel(tr("curve with(pixels):"), this);
+    curveWidthLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+    curveWidthLineEdit = new QLineEdit(this);
+    curveWidthLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    curveWidthLineEdit->setFixedWidth(50);
+    curveWidthLineEdit->setValidator(nonegDigitalValidator);
+
+    pieRadiusLabel = new QLabel(tr("pie radius(pixels):"), this);
+    pieRadiusLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+    pieRadiusLineEdit = new QLineEdit(this);
+    pieRadiusLineEdit->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    pieRadiusLineEdit->setFixedWidth(50);
+    pieRadiusLineEdit->setValidator(nonegDigitalValidator);
 
 	plotter = new Plotter(this);
 }
@@ -202,9 +219,19 @@ void MyPlotter::createLayout()
     curveSmoothLvlHLayout->addWidget(curveSmoothLvlLabel);
     curveSmoothLvlHLayout->addWidget(curveSmoothLvlComboBox);
 
+    QHBoxLayout *curveWidthHLayout = new QHBoxLayout;
+    curveWidthHLayout->addWidget(curveWidthLabel);
+    curveWidthHLayout->addWidget(curveWidthLineEdit);
+
+    QHBoxLayout *pieRadiusHLayout = new QHBoxLayout;
+    pieRadiusHLayout->addWidget(pieRadiusLabel);
+    pieRadiusHLayout->addWidget(pieRadiusLineEdit);
+
     QVBoxLayout *othersVLayout = new QVBoxLayout;
     othersVLayout->addLayout(numGridHLayout);
     othersVLayout->addLayout(curveSmoothLvlHLayout);
+    othersVLayout->addLayout(curveWidthHLayout);
+    othersVLayout->addLayout(pieRadiusHLayout);
 
     QGroupBox *othersGroupBox = new QGroupBox(this);
     othersGroupBox->setTitle(tr("Others"));
@@ -253,12 +280,36 @@ void MyPlotter::createConnections()
     connect(numYGridLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(numYGridChanged(const QString &)));
     connect(curveSmoothLvlComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(curveSmoothLevelTypeChanged(int)));
     connect(this, SIGNAL(setCurveSmoothLevelType(int)), plotter, SLOT(setCurveSmoothLevelType(int)));
+    connect(curveWidthLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(curveWidthChanged(const QString &)));
+    connect(pieRadiusLineEdit, SIGNAL(textChanged(const QString &)), this, SLOT(pieRadiusChanged(const QString &)));
+    connect(this, SIGNAL(setCurveWidth(const QString &)), plotter, SLOT(setCurveWidth(const QString &)));
+    connect(this, SIGNAL(setPieRadius(const QString &)), plotter, SLOT(setPieRadius(const QString &)));
+}
+
+void MyPlotter::createInitialValues()
+{
+    xMinLineEdit->setText("-10.00");
+    xMaxLineEdit->setText("10.00");
+    yMinLineEdit->setText("-10.00");
+    yMaxLineEdit->setText("10.00");
+    numXTicksLineEdit->setText("20");
+    numYTicksLineEdit->setText("20");
+    numXGridLineEdit->setText("40");
+    numYGridLineEdit->setText("40");
+    curveWidthLineEdit->setText("1");
+    pieRadiusLineEdit->setText("5");
 }
 
 QSize MyPlotter::minimumSizeHint() const
 {
-	return sizeHint();
+	return QSize(500, 500);
 }
+
+QSize MyPlotter::sizeHint() const
+{
+    return QSize(500, 500);
+}
+
 
 void MyPlotter::minXChanged(const QString &strMinX)
 {
@@ -480,4 +531,19 @@ void MyPlotter::curveSmoothLevelTypeChanged(int index)
 {
     emit setCurveSmoothLevelType(sCurveSmoothLevelType[index]);		
 }
+
+void MyPlotter::curveWidthChanged(const QString &strWidth)
+{
+    if (strWidth.isEmpty())
+        return ;
+    emit setCurveWidth(strWidth);
+}
+
+void MyPlotter::pieRadiusChanged(const QString &strRadius)
+{
+    if (strRadius.isEmpty())
+        return ;
+    emit setPieRadius(strRadius);
+}
+
 

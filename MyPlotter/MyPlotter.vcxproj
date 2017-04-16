@@ -98,6 +98,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="myplotter.cpp" />
     <ClCompile Include="plotter.cpp" />
+    <ClCompile Include="PlotterSetting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="myplotter.qrc">
@@ -135,6 +136,13 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\zoomin.png" />
+    <None Include="images\zoomout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PlotterSetting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

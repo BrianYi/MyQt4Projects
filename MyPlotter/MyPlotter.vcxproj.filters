@@ -59,6 +59,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_plotter.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="PlotterSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="myplotter.qrc">
@@ -70,5 +73,18 @@
     <CustomBuild Include="plotter.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\zoomin.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\zoomout.png">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PlotterSetting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

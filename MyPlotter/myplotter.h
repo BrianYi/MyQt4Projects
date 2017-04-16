@@ -19,8 +19,10 @@ public:
 	void createComponents();
 	void createLayout();
     void createConnections();
+    void createInitialValues();
 	int curFormulaType() const { return formulaComboBox->currentIndex(); }
 	QSize minimumSizeHint() const;
+    QSize sizeHint() const;
 signals:
     void setMinX(const QString &);
     void setMaxX(const QString &);
@@ -33,6 +35,8 @@ signals:
     void setCoordSysType(int coordSysType);
     void setFormulaType(int formulaType);
     void setCurveSmoothLevelType(int curveSmoothLvlType);
+    void setCurveWidth(const QString &);
+    void setPieRadius(const QString &);
 protected slots:
     void minXChanged(const QString &strMinX);
     void maxXChanged(const QString &strMaxX);
@@ -45,6 +49,8 @@ protected slots:
     void coordSysTypeChanged(int coordSysType);
     void formulaTypeChanged(int formulaType);
     void curveSmoothLevelTypeChanged(int index);
+    void curveWidthChanged(const QString &strWidth);
+    void pieRadiusChanged(const QString &strRadius);
 private:
 	QRegExpValidator *realValidator;
 	QRegExpValidator *nonegRealValidator;
@@ -71,6 +77,10 @@ private:
 	QLineEdit *numYGridLineEdit;
     QLabel *curveSmoothLvlLabel;
     QComboBox *curveSmoothLvlComboBox;
+    QLabel *curveWidthLabel;
+    QLineEdit *curveWidthLineEdit;
+    QLabel *pieRadiusLabel;
+    QLineEdit *pieRadiusLineEdit;
 	Plotter *plotter;
 };
 
