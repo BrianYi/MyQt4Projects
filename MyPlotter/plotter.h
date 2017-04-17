@@ -90,8 +90,10 @@ private:
     bool rubberBandIsShown;
     QRect rubberBandRect;
     bool pieIsShown;
+	bool movePlotter;
     QRect pieRect;
     QPoint pieO;
+	QPoint moveStartPos;
     int pieRadius;
     int curveWidth;
 	QVector<PlotterSetting> zoomStack;

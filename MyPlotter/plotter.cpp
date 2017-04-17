@@ -14,6 +14,7 @@ Plotter::Plotter(QWidget *parent)
     zoomStack.append(PlotterSetting());
     rubberBandIsShown = false;
     pieIsShown = false;
+	movePlotter = false;
     pieRadius = 5;
     polyline = new QPolygon;
     zoomInButton = new QToolButton(this);
@@ -457,7 +458,11 @@ void Plotter::mousePressEvent(QMouseEvent *event)
             }
         }
         updatePieRectRegion();
-    }
+    } else if (event->button() == Qt::MidButton && rect.contains(event->pos())) {
+		movePlotter = true;
+		setCursor(Qt::OpenHandCursor);
+		moveStartPos = event->pos();
+	}
 }
 
 void Plotter::mouseReleaseEvent(QMouseEvent *event)
@@ -493,7 +498,10 @@ void Plotter::mouseReleaseEvent(QMouseEvent *event)
     } else if (event->button() == Qt::RightButton && pieIsShown) {
         pieIsShown = false;
         updatePieRectRegion();
-    }
+    } else if (event->button() == Qt::MidButton && movePlotter) {
+		movePlotter = false;
+		unsetCursor();
+	}
 }
 
 void Plotter::mouseMoveEvent(QMouseEvent *event)
@@ -514,6 +522,30 @@ void Plotter::mouseMoveEvent(QMouseEvent *event)
         }
         updatePieRectRegion();
     }
+
+	if (/*event->button() == Qt::MidButton && */movePlotter) {
+		QPoint moveEndPos = event->pos();
+		static QPoint diffMovePos;
+		diffMovePos += moveEndPos - moveStartPos;
+		moveStartPos = moveEndPos;
+		PlotterSetting &plotterSetting = zoomStack[curZoom];
+		double xPixelPerTick = (width() - 1) / plotterSetting.numXTicks;
+		double yPixelPerTick = (height() - 1) / plotterSetting.numYTicks;
+		int dxTicks = diffMovePos.x() / xPixelPerTick;
+		int dyTicks = diffMovePos.y() / yPixelPerTick;
+		if (dxTicks != 0 || dyTicks != 0)
+		{
+			plotterSetting.scroll(-dxTicks, dyTicks);
+// 		plotterSetting.minX -= dx;
+// 		plotterSetting.maxX -= dx;
+// 		plotterSetting.minY += dy;
+// 		plotterSetting.maxY += dy;
+			diffMovePos.rx() -= dxTicks * xPixelPerTick;
+			diffMovePos.ry() -= dyTicks * yPixelPerTick;
+			
+			update();
+		}
+	}
 }
 
 void Plotter::wheelEvent(QWheelEvent *event)
