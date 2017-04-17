@@ -49,8 +49,6 @@ public:
     void drawPoint(QPainter *painter, const QRect &rect);
     int coordSysType() const { return curCoordSysType; }
     int formulaType() const { return  curFormulaType; }
-// 	double spanX() const { return plotterSetting.spanX(); }
-// 	double spanY() const { return plotterSetting.spanY(); }
 	QSize minimumSizeHint() const;
     QSize sizeHint() const;
 public slots:

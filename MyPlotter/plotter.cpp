@@ -15,14 +15,6 @@ Plotter::Plotter(QWidget *parent)
     rubberBandIsShown = false;
     pieIsShown = false;
     pieRadius = 5;
-//     minX = -10.0;
-//     minY = -10.0;
-//     maxX = 10.0;
-//     maxY = 10.0;
-//     numXTicks = 20;
-//     numYTicks = 20;
-//     numXGrid = 40;
-//     numYGrid = 40;
     polyline = new QPolygon;
     zoomInButton = new QToolButton(this);
     zoomInButton->setIcon(QIcon(":images/zoomin.png"));
@@ -264,7 +256,7 @@ void Plotter::drawPoint(QPainter *painter, const QRect &rect)
 {
     if (pieIsShown && rect.contains(pieO))
     {
-        painter->setPen(Qt::red);
+        painter->setPen(QPen(Qt::red/*, curveWidth*/));
         painter->setBrush(QBrush(QColor(Qt::red)));
         painter->drawEllipse(pieO, pieRadius, pieRadius);
         bool finded;
@@ -274,7 +266,7 @@ void Plotter::drawPoint(QPainter *painter, const QRect &rect)
             str = QString(tr("P(%1, %2)")).arg(QString::number(pointVal.x())).arg(QString::number(pointVal.y()));
         }
         //painter->drawRect(pieRect.adjusted(0, 0, -1, -1));
-        painter->drawText(/*r*/pieRect.adjusted(+5, 0, 0, 0), str, Qt::AlignTop | Qt::AlignLeft);
+        painter->drawText(pieRect.adjusted(+5, 0, 0, 0), str, Qt::AlignTop | Qt::AlignLeft);
     }
 }
 
@@ -522,12 +514,6 @@ void Plotter::mouseMoveEvent(QMouseEvent *event)
         }
         updatePieRectRegion();
     }
-// 
-//     QPainter painter(this);
-//     QPoint pos = event->pos();
-//     QRect rect = QRect(pos.x() - 50, pos.y() - 20, 100, 40);
-//     painter.drawText(rect, Qt::AlignHCenter | Qt::AlignVCenter, "hello");
-//     update(rect);
 }
 
 void Plotter::wheelEvent(QWheelEvent *event)
@@ -564,8 +550,8 @@ void Plotter::updatePieRectRegion()
     int radius = pieRadius;
     if (radius < 5)
         radius = 5;
-    pieRect.setRect(pieO.x(), pieO.y(), 30 * radius, 6 * radius);
-    pieRect.translate(-2 * radius, -4 * radius);
+    pieRect.setRect(pieO.x(), pieO.y(), 2 * (radius + 1) + 200, 2 * (radius + 1) + 20);
+    pieRect.translate(-(radius + 1), -(radius + 1 + 20));
     update(pieRect.normalized());
 }
 
