@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyPlotter", "MyPlotter\MyPl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Plotter", "Plotter\Plotter.vcxproj", "{7F957EF4-D948-40A5-B2CE-00F98767E823}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mailclient", "mailclient\mailclient.vcxproj", "{BD7904B9-F469-410D-941C-7623B57681CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +45,10 @@ Global
 		{7F957EF4-D948-40A5-B2CE-00F98767E823}.Debug|Win32.Build.0 = Debug|Win32
 		{7F957EF4-D948-40A5-B2CE-00F98767E823}.Release|Win32.ActiveCfg = Release|Win32
 		{7F957EF4-D948-40A5-B2CE-00F98767E823}.Release|Win32.Build.0 = Release|Win32
+		{BD7904B9-F469-410D-941C-7623B57681CA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BD7904B9-F469-410D-941C-7623B57681CA}.Debug|Win32.Build.0 = Debug|Win32
+		{BD7904B9-F469-410D-941C-7623B57681CA}.Release|Win32.ActiveCfg = Release|Win32
+		{BD7904B9-F469-410D-941C-7623B57681CA}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
