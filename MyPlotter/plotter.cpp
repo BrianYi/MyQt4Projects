@@ -14,15 +14,8 @@ Plotter::Plotter(QWidget *parent)
     zoomStack.append(PlotterSetting());
     rubberBandIsShown = false;
     pieIsShown = false;
+	movePlotter = false;
     pieRadius = 5;
-//     minX = -10.0;
-//     minY = -10.0;
-//     maxX = 10.0;
-//     maxY = 10.0;
-//     numXTicks = 20;
-//     numYTicks = 20;
-//     numXGrid = 40;
-//     numYGrid = 40;
     polyline = new QPolygon;
     zoomInButton = new QToolButton(this);
     zoomInButton->setIcon(QIcon(":images/zoomin.png"));
@@ -264,7 +257,7 @@ void Plotter::drawPoint(QPainter *painter, const QRect &rect)
 {
     if (pieIsShown && rect.contains(pieO))
     {
-        painter->setPen(Qt::red);
+        painter->setPen(QPen(Qt::red/*, curveWidth*/));
         painter->setBrush(QBrush(QColor(Qt::red)));
         painter->drawEllipse(pieO, pieRadius, pieRadius);
         bool finded;
@@ -274,7 +267,7 @@ void Plotter::drawPoint(QPainter *painter, const QRect &rect)
             str = QString(tr("P(%1, %2)")).arg(QString::number(pointVal.x())).arg(QString::number(pointVal.y()));
         }
         //painter->drawRect(pieRect.adjusted(0, 0, -1, -1));
-        painter->drawText(/*r*/pieRect.adjusted(+5, 0, 0, 0), str, Qt::AlignTop | Qt::AlignLeft);
+        painter->drawText(pieRect.adjusted(+5, 0, 0, 0), str, Qt::AlignTop | Qt::AlignLeft);
     }
 }
 
@@ -465,7 +458,11 @@ void Plotter::mousePressEvent(QMouseEvent *event)
             }
         }
         updatePieRectRegion();
-    }
+    } else if (event->button() == Qt::MidButton && rect.contains(event->pos())) {
+		movePlotter = true;
+		setCursor(Qt::OpenHandCursor);
+		moveStartPos = event->pos();
+	}
 }
 
 void Plotter::mouseReleaseEvent(QMouseEvent *event)
@@ -501,7 +498,10 @@ void Plotter::mouseReleaseEvent(QMouseEvent *event)
     } else if (event->button() == Qt::RightButton && pieIsShown) {
         pieIsShown = false;
         updatePieRectRegion();
-    }
+    } else if (event->button() == Qt::MidButton && movePlotter) {
+		movePlotter = false;
+		unsetCursor();
+	}
 }
 
 void Plotter::mouseMoveEvent(QMouseEvent *event)
@@ -522,12 +522,30 @@ void Plotter::mouseMoveEvent(QMouseEvent *event)
         }
         updatePieRectRegion();
     }
-// 
-//     QPainter painter(this);
-//     QPoint pos = event->pos();
-//     QRect rect = QRect(pos.x() - 50, pos.y() - 20, 100, 40);
-//     painter.drawText(rect, Qt::AlignHCenter | Qt::AlignVCenter, "hello");
-//     update(rect);
+
+	if (/*event->button() == Qt::MidButton && */movePlotter) {
+		QPoint moveEndPos = event->pos();
+		static QPoint diffMovePos;
+		diffMovePos += moveEndPos - moveStartPos;
+		moveStartPos = moveEndPos;
+		PlotterSetting &plotterSetting = zoomStack[curZoom];
+		double xPixelPerTick = (width() - 1) / plotterSetting.numXTicks;
+		double yPixelPerTick = (height() - 1) / plotterSetting.numYTicks;
+		int dxTicks = diffMovePos.x() / xPixelPerTick;
+		int dyTicks = diffMovePos.y() / yPixelPerTick;
+		if (dxTicks != 0 || dyTicks != 0)
+		{
+			plotterSetting.scroll(-dxTicks, dyTicks);
+// 		plotterSetting.minX -= dx;
+// 		plotterSetting.maxX -= dx;
+// 		plotterSetting.minY += dy;
+// 		plotterSetting.maxY += dy;
+			diffMovePos.rx() -= dxTicks * xPixelPerTick;
+			diffMovePos.ry() -= dyTicks * yPixelPerTick;
+			
+			update();
+		}
+	}
 }
 
 void Plotter::wheelEvent(QWheelEvent *event)
@@ -564,8 +582,8 @@ void Plotter::updatePieRectRegion()
     int radius = pieRadius;
     if (radius < 5)
         radius = 5;
-    pieRect.setRect(pieO.x(), pieO.y(), 30 * radius, 6 * radius);
-    pieRect.translate(-2 * radius, -4 * radius);
+    pieRect.setRect(pieO.x(), pieO.y(), 2 * (radius + 1) + 200, 2 * (radius + 1) + 20);
+    pieRect.translate(-(radius + 1), -(radius + 1 + 20));
     update(pieRect.normalized());
 }
 
