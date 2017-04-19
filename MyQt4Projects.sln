@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mailclient", "mailclient\ma
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PreferenceDialog", "PreferenceDialog\PreferenceDialog.vcxproj", "{26DAB616-F665-4A41-92C6-B738DEDB6AE5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mdieditor", "mdieditor\mdieditor.vcxproj", "{D1CB218B-C893-420F-89ED-3E2841C7F5F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -55,6 +57,10 @@ Global
 		{26DAB616-F665-4A41-92C6-B738DEDB6AE5}.Debug|Win32.Build.0 = Debug|Win32
 		{26DAB616-F665-4A41-92C6-B738DEDB6AE5}.Release|Win32.ActiveCfg = Release|Win32
 		{26DAB616-F665-4A41-92C6-B738DEDB6AE5}.Release|Win32.Build.0 = Release|Win32
+		{D1CB218B-C893-420F-89ED-3E2841C7F5F9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D1CB218B-C893-420F-89ED-3E2841C7F5F9}.Debug|Win32.Build.0 = Debug|Win32
+		{D1CB218B-C893-420F-89ED-3E2841C7F5F9}.Release|Win32.ActiveCfg = Release|Win32
+		{D1CB218B-C893-420F-89ED-3E2841C7F5F9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
