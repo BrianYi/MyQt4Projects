@@ -79,15 +79,14 @@ mailclient::mailclient(QWidget *parent, Qt::WFlags flags)
     statusBar()->showMessage(tr("No new message on server"));
 
     rightSplitter = new QSplitter(Qt::Vertical);
-    //rightSplitter->addWidget(messagesTreeWidget);
-    //rightSplitter->addWidget(textEdit);
+    rightSplitter->addWidget(messagesTreeWidget);
+    rightSplitter->addWidget(textEdit);
     rightSplitter->setStretchFactor(1,1);
 
 
     mainSplitter = new QSplitter(Qt::Horizontal);
     mainSplitter->addWidget(foldersTreeWidget);
-    mainSplitter->addWidget(/*rightSplitter*/messagesTreeWidget);
-    mainSplitter->addWidget(textEdit);
+    mainSplitter->addWidget(rightSplitter);
     mainSplitter->setStretchFactor(1,1);
     setCentralWidget(mainSplitter);
 
