@@ -103,10 +103,12 @@ bool Editor::okToContinue()
             tr("File %1 has been modified.\n"
             "Do you want to save your changes?")
             .arg(strippedName(curFile)),
-            QMessageBox::Yes | QMessageBox::Cancel);
+            QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
         if (r == QMessageBox::Yes) {
             return save();
-        } else if (r == QMessageBox::Cancel) {
+        } else if (r == QMessageBox::No) {
+			return true;
+		} else if (r == QMessageBox::Cancel) {
             return false;
         }
     }
