@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PreferenceDialog", "Prefere
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mdieditor", "mdieditor\mdieditor.vcxproj", "{D1CB218B-C893-420F-89ED-3E2841C7F5F9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ticker", "Ticker\Ticker.vcxproj", "{2903798D-AE23-4E0E-9CE6-A23105FBE931}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -61,6 +63,10 @@ Global
 		{D1CB218B-C893-420F-89ED-3E2841C7F5F9}.Debug|Win32.Build.0 = Debug|Win32
 		{D1CB218B-C893-420F-89ED-3E2841C7F5F9}.Release|Win32.ActiveCfg = Release|Win32
 		{D1CB218B-C893-420F-89ED-3E2841C7F5F9}.Release|Win32.Build.0 = Release|Win32
+		{2903798D-AE23-4E0E-9CE6-A23105FBE931}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2903798D-AE23-4E0E-9CE6-A23105FBE931}.Debug|Win32.Build.0 = Debug|Win32
+		{2903798D-AE23-4E0E-9CE6-A23105FBE931}.Release|Win32.ActiveCfg = Release|Win32
+		{2903798D-AE23-4E0E-9CE6-A23105FBE931}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
