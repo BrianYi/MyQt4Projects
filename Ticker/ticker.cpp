@@ -32,7 +32,7 @@ void Ticker::paintEvent(QPaintEvent *event)
         return ;
     int x = -offset;
     while (x < width()) {
-        painter.drawText(x, 0, textWidth, height(), Qt::AlignLeft | Qt::AlignVCenter, myText);
+        painter.drawText(x, 0, textWidth, height(), Qt::AlignLeft | Qt::AlignVCenter, text());
         x += textWidth;
     }
 }
@@ -41,7 +41,10 @@ void Ticker::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == myTimerId) {
         offset++;
+        if (offset >= fontMetrics().width(text()))
+            offset = 0;
         scroll(-1, 0);
+        update();
     } else {
         QWidget::timerEvent(event);
     }
