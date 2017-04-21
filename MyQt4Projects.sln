@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mdieditor", "mdieditor\mdie
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ticker", "Ticker\Ticker.vcxproj", "{2903798D-AE23-4E0E-9CE6-A23105FBE931}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OvenTimer", "OvenTimer\OvenTimer.vcxproj", "{2158B81E-518C-4610-B3EF-99CE5D77D837}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -67,6 +69,10 @@ Global
 		{2903798D-AE23-4E0E-9CE6-A23105FBE931}.Debug|Win32.Build.0 = Debug|Win32
 		{2903798D-AE23-4E0E-9CE6-A23105FBE931}.Release|Win32.ActiveCfg = Release|Win32
 		{2903798D-AE23-4E0E-9CE6-A23105FBE931}.Release|Win32.Build.0 = Release|Win32
+		{2158B81E-518C-4610-B3EF-99CE5D77D837}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2158B81E-518C-4610-B3EF-99CE5D77D837}.Debug|Win32.Build.0 = Debug|Win32
+		{2158B81E-518C-4610-B3EF-99CE5D77D837}.Release|Win32.ActiveCfg = Release|Win32
+		{2158B81E-518C-4610-B3EF-99CE5D77D837}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
