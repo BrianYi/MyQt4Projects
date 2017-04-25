@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyDiagram", "MyDiagram\MyDi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cityscape", "Cityscape\Cityscape.vcxproj", "{9BADA834-31AF-4B39-8784-9AEB61331C83}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DragExample", "DragExample\DragExample.vcxproj", "{79369F0A-478B-4A09-96B3-4F60C2B34AD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -91,6 +93,10 @@ Global
 		{9BADA834-31AF-4B39-8784-9AEB61331C83}.Debug|Win32.Build.0 = Debug|Win32
 		{9BADA834-31AF-4B39-8784-9AEB61331C83}.Release|Win32.ActiveCfg = Release|Win32
 		{9BADA834-31AF-4B39-8784-9AEB61331C83}.Release|Win32.Build.0 = Release|Win32
+		{79369F0A-478B-4A09-96B3-4F60C2B34AD0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{79369F0A-478B-4A09-96B3-4F60C2B34AD0}.Debug|Win32.Build.0 = Debug|Win32
+		{79369F0A-478B-4A09-96B3-4F60C2B34AD0}.Release|Win32.ActiveCfg = Release|Win32
+		{79369F0A-478B-4A09-96B3-4F60C2B34AD0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
