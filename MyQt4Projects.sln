@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DragExample", "DragExample\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjectListWidget", "ProjectListWidget\ProjectListWidget.vcxproj", "{789A140F-6CFE-4B72-AA35-7754364F257C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PuzzleGame", "PuzzleGame\PuzzleGame.vcxproj", "{71D64838-1290-47F4-AB8A-280972EE9AD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -103,6 +105,10 @@ Global
 		{789A140F-6CFE-4B72-AA35-7754364F257C}.Debug|Win32.Build.0 = Debug|Win32
 		{789A140F-6CFE-4B72-AA35-7754364F257C}.Release|Win32.ActiveCfg = Release|Win32
 		{789A140F-6CFE-4B72-AA35-7754364F257C}.Release|Win32.Build.0 = Release|Win32
+		{71D64838-1290-47F4-AB8A-280972EE9AD2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{71D64838-1290-47F4-AB8A-280972EE9AD2}.Debug|Win32.Build.0 = Debug|Win32
+		{71D64838-1290-47F4-AB8A-280972EE9AD2}.Release|Win32.ActiveCfg = Release|Win32
+		{71D64838-1290-47F4-AB8A-280972EE9AD2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
