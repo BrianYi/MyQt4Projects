@@ -7,7 +7,6 @@ PuzzleBlock::PuzzleBlock(const QPixmap& pixmap, const qint32& width, const qint3
     myHeight = height;
 	myEnablePixmap = true;
 	setFlags(ItemIsFocusable);
-	setAcceptDrops(true);
 }
 
 PuzzleBlock::~PuzzleBlock()

@@ -13,8 +13,8 @@ public:
     enum { 
         PuzzleWidth = 600, 
         PuzzleHeight = 600,
-        PuzzleRow = 6,
-        PuzzleCol = 6
+        PuzzleRow = 3,
+        PuzzleCol = 3
     };
     PuzzleGame(QWidget *parent = 0);
     ~PuzzleGame();

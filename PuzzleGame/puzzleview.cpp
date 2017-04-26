@@ -4,7 +4,7 @@
 PuzzleView::PuzzleView(QWidget *parent)
 	: QGraphicsView(parent)
 {
-
+	
 }
 
 PuzzleView::~PuzzleView()
@@ -69,8 +69,10 @@ void PuzzleView::dropEvent(QDropEvent *event)
 			block->setPos(pos2);
 			newBlock->setPos(pos1);
 		}
-		block->enablePixmap(true);
 	}
+
+	if (block)
+		block->enablePixmap(true);
 }
 
 void PuzzleView::mousePressEvent(QMouseEvent *event)
