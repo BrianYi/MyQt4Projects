@@ -5,17 +5,20 @@ PuzzleGame::PuzzleGame(QWidget *parent)
 {
     puzzleScene = new QGraphicsScene(0, 0, PuzzleWidth, PuzzleHeight, this);
 
-    puzzleView = new QGraphicsView(puzzleScene, this);
-
+    puzzleView = new PuzzleView(this);
+	puzzleView->setScene(puzzleScene);
+	puzzleView->setRenderHints(QPainter::Antialiasing
+		| QPainter::TextAntialiasing);
     setCentralWidget(puzzleView);
 
     myRow = PuzzleRow;
     myCol = PuzzleCol;
 
-    QPixmap pixmap(tr(":images/puzzlemap.jpg"));
-    myPuzzleMap = pixmap;
+    myPuzzleMap.load(":/images/puzzlemap.png");
+	setWindowIcon(myPuzzleMap);
 
     generatePuzzleBlocks();
+	setFixedSize(PuzzleWidth + 10, PuzzleHeight + 10);
 }
 
 PuzzleGame::~PuzzleGame()

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "puzzleblock.h"
+#include "puzzleview.h"
 
 class PuzzleGame : public QMainWindow
 {
@@ -21,15 +22,15 @@ public:
     void setPuzzleSize(const qint32 &row, const qint32 &col);
 protected:
     void generatePuzzleBlocks();
-
 private:
     typedef QPair<int, int> BlockPos;
     QGraphicsScene *puzzleScene;
-    QGraphicsView *puzzleView;
+    PuzzleView *puzzleView;
     QList<PuzzleBlock*> puzzleBlocks;
     QPixmap myPuzzleMap;
     qint32 myRow;
     qint32 myCol;
+	QPoint startPos;
 };
 
 #endif // PUZZLEGAME_H

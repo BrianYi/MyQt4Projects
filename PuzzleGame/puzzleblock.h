@@ -11,6 +11,7 @@ public:
     ~PuzzleBlock();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
+	QPixmap pixmap();
 private:
     QPixmap myPixmap;
     qint32 myWith;
