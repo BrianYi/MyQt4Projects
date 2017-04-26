@@ -12,10 +12,12 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
 	QPixmap pixmap();
+	void enablePixmap(bool enabled);
 private:
     QPixmap myPixmap;
     qint32 myWith;
     qint32 myHeight;
+	bool myEnablePixmap;
 };
 
 #endif // PUZZLEBLOCK_H

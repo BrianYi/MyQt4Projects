@@ -15,6 +15,7 @@ PuzzleGame::PuzzleGame(QWidget *parent)
     myCol = PuzzleCol;
 
     myPuzzleMap.load(":/images/puzzlemap.png");
+	myPuzzleMap.scaled(PuzzleWidth, PuzzleHeight);
 	setWindowIcon(myPuzzleMap);
 
     generatePuzzleBlocks();

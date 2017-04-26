@@ -14,12 +14,7 @@ PuzzleView::~PuzzleView()
 
 PuzzleBlock *PuzzleView::selectedBlock() const
 {
-	QList<QGraphicsItem*> items = scene()->selectedItems();
-	if (items.count() == 1) {
-		return dynamic_cast<PuzzleBlock *>(items.first());
-	} else {
-		return 0;
-	}
+	return dynamic_cast<PuzzleBlock *>(scene()->focusItem());
 }
 
 void PuzzleView::mouseMoveEvent(QMouseEvent *event)
@@ -27,7 +22,10 @@ void PuzzleView::mouseMoveEvent(QMouseEvent *event)
 	PuzzleBlock *block = selectedBlock();
 	if ((event->buttons() & Qt::LeftButton) && block) {
 		int distance = (event->pos() - startPos).manhattanLength();
+
 		if (distance >= QApplication::startDragDistance()) {
+			block->enablePixmap(false);
+
 			QMimeData *mimeData = new QMimeData;
 			QPixmap pix = block->pixmap();
 			mimeData->setImageData(pix);
@@ -35,6 +33,7 @@ void PuzzleView::mouseMoveEvent(QMouseEvent *event)
 			QDrag *drag = new QDrag(this);
 			drag->setMimeData(mimeData);
 			drag->setPixmap(pix);
+			drag->setHotSpot((event->pos() - block->pos()).toPoint());
 			drag->exec(Qt::MoveAction);
 		}
 	}
@@ -43,22 +42,35 @@ void PuzzleView::mouseMoveEvent(QMouseEvent *event)
 
 void PuzzleView::dragEnterEvent(QDragEnterEvent *event)
 {
-
-	event->setDropAction(Qt::MoveAction);
-	event->accept();
+	PuzzleBlock *block = selectedBlock();
+	if (block) {
+		event->setDropAction(Qt::MoveAction);
+		event->accept();
+	}
 }
 
 void PuzzleView::dragMoveEvent(QDragMoveEvent *event)
 {
-
-	event->setDropAction(Qt::MoveAction);
-	event->accept();
-
+	PuzzleBlock *block = selectedBlock();
+	if (block) {
+		event->setDropAction(Qt::MoveAction);
+		event->accept();
+	}
 }
 
 void PuzzleView::dropEvent(QDropEvent *event)
 {
-
+	PuzzleBlock *block = selectedBlock();
+	PuzzleBlock *newBlock = dynamic_cast<PuzzleBlock *>(itemAt(event->pos()));
+	if (block && newBlock) {
+		if (block != newBlock) {
+			QPointF pos1 = block->pos();
+			QPointF pos2 = newBlock->pos();
+			block->setPos(pos2);
+			newBlock->setPos(pos1);
+		}
+		block->enablePixmap(true);
+	}
 }
 
 void PuzzleView::mousePressEvent(QMouseEvent *event)
