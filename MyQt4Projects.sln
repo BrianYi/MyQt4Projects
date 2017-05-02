@@ -59,6 +59,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageSpace", "ImageSpace\Im
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageConverter", "ImageConverter\ImageConverter.vcxproj", "{F9214E4E-09B9-482A-87C3-5A3D7CAD3B08}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmployeeForm", "EmployeeForm\EmployeeForm.vcxproj", "{A5AA22DF-22E8-494F-AE73-10411687F348}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scooters", "Scooters\Scooters.vcxproj", "{081C3345-150E-44A0-86B4-C75D0D6C518B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -181,6 +185,14 @@ Global
 		{F9214E4E-09B9-482A-87C3-5A3D7CAD3B08}.Debug|Win32.Build.0 = Debug|Win32
 		{F9214E4E-09B9-482A-87C3-5A3D7CAD3B08}.Release|Win32.ActiveCfg = Release|Win32
 		{F9214E4E-09B9-482A-87C3-5A3D7CAD3B08}.Release|Win32.Build.0 = Release|Win32
+		{A5AA22DF-22E8-494F-AE73-10411687F348}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A5AA22DF-22E8-494F-AE73-10411687F348}.Debug|Win32.Build.0 = Debug|Win32
+		{A5AA22DF-22E8-494F-AE73-10411687F348}.Release|Win32.ActiveCfg = Release|Win32
+		{A5AA22DF-22E8-494F-AE73-10411687F348}.Release|Win32.Build.0 = Release|Win32
+		{081C3345-150E-44A0-86B4-C75D0D6C518B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{081C3345-150E-44A0-86B4-C75D0D6C518B}.Debug|Win32.Build.0 = Debug|Win32
+		{081C3345-150E-44A0-86B4-C75D0D6C518B}.Release|Win32.ActiveCfg = Release|Win32
+		{081C3345-150E-44A0-86B4-C75D0D6C518B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
