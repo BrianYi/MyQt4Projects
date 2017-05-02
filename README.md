@@ -109,3 +109,8 @@
 * QSqlTableModel（不含外键）、QSqlRelationalTableModel（含外键）用法
 * QDataWidgetMapper用法
 * QDateEdit用法
+## Semaphores
+* 用生产者，消费者的例子展示了QSemaphore的用法
+## WaitConditions
+* 
+* 
