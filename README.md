@@ -102,4 +102,10 @@
 ## ImageSpace
 * QImageReader::supportedImageFormats()用法
 * QStringList QDir::entryList()、QFileInfo::size()用法
-
+## Scooters
+* QSqlTableModel用法
+* QTableView用法
+## EmployeeForm(数据库模型用法)
+* QSqlTableModel（不含外键）、QSqlRelationalTableModel（含外键）用法
+* QDataWidgetMapper用法
+* QDateEdit用法
