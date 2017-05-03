@@ -109,8 +109,17 @@
 * QSqlTableModel（不含外键）、QSqlRelationalTableModel（含外键）用法
 * QDataWidgetMapper用法
 * QDateEdit用法
+## ThreadDialog
+* 线程的用法
 ## Semaphores
 * 用生产者，消费者的例子展示了QSemaphore的用法
 ## WaitConditions
-* 
-* 
+* 条件变量的用法
+## ImagePro
+* 线程与主线程通信（通过信号槽）
+* 条件变量用法
+* QMutexLocker用法
+* 线程事务处理（事物是抽象类的派生类对象）
+## FTPGet
+* QFtp用法
+## Spider

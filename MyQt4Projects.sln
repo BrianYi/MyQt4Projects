@@ -71,6 +71,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WaitConditions", "WaitCondi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImagePro", "ImagePro\ImagePro.vcxproj", "{57C6FF77-611B-4FDD-88B0-589B36139890}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FTPGet", "FTPGet\FTPGet.vcxproj", "{A615666C-5C7E-4FDE-B0C7-4B2DE84871FF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Spider", "Spider\Spider.vcxproj", "{C7FAE077-7941-407E-817D-B0DD19ED326E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -217,6 +221,14 @@ Global
 		{57C6FF77-611B-4FDD-88B0-589B36139890}.Debug|Win32.Build.0 = Debug|Win32
 		{57C6FF77-611B-4FDD-88B0-589B36139890}.Release|Win32.ActiveCfg = Release|Win32
 		{57C6FF77-611B-4FDD-88B0-589B36139890}.Release|Win32.Build.0 = Release|Win32
+		{A615666C-5C7E-4FDE-B0C7-4B2DE84871FF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A615666C-5C7E-4FDE-B0C7-4B2DE84871FF}.Debug|Win32.Build.0 = Debug|Win32
+		{A615666C-5C7E-4FDE-B0C7-4B2DE84871FF}.Release|Win32.ActiveCfg = Release|Win32
+		{A615666C-5C7E-4FDE-B0C7-4B2DE84871FF}.Release|Win32.Build.0 = Release|Win32
+		{C7FAE077-7941-407E-817D-B0DD19ED326E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C7FAE077-7941-407E-817D-B0DD19ED326E}.Debug|Win32.Build.0 = Debug|Win32
+		{C7FAE077-7941-407E-817D-B0DD19ED326E}.Release|Win32.ActiveCfg = Release|Win32
+		{C7FAE077-7941-407E-817D-B0DD19ED326E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
