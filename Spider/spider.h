@@ -21,7 +21,8 @@ signals:
 private slots:
     void ftpDone(bool error);
     void ftpListInfo(const QUrlInfo &urlInfo);
-
+	void ftpCommandStarted(int id);
+	void ftpCommandFinished(int id, bool error);
 private:
     void processNextDirectory();
 
@@ -30,6 +31,11 @@ private:
     QString currentDir;
     QString currentLocalDir;
     QStringList pendingDirs;
+	int connectID;
+	int loginID;
+	int getID;
+	int cdID;
+	int listID;
 };
 
 #endif

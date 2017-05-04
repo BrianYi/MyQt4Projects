@@ -10,6 +10,9 @@ Spider::Spider(QObject *parent)
     connect(&ftp, SIGNAL(done(bool)), this, SLOT(ftpDone(bool)));
     connect(&ftp, SIGNAL(listInfo(const QUrlInfo &)),
             this, SLOT(ftpListInfo(const QUrlInfo &)));
+	connect(&ftp, SIGNAL(commandStarted(int)), this, SLOT(ftpCommandStarted(int)));
+	connect(&ftp, SIGNAL(commandFinished(int, bool)), this, SLOT(ftpCommandFinished(int, bool)));
+	connectID = loginID = getID = cdID = listID = -1;
 }
 
 bool Spider::getDirectory(const QUrl &url)
@@ -24,8 +27,8 @@ bool Spider::getDirectory(const QUrl &url)
         return false;
     }
 
-    ftp.connectToHost(url.host(), url.port(21));
-    ftp.login();
+    connectID = ftp.connectToHost(url.host(), url.port(21));
+    loginID = ftp.login("brianyi", "123456");
 
     QString path = url.path();
     if (path.isEmpty())
@@ -45,7 +48,8 @@ void Spider::ftpDone(bool error)
     } else {
         std::cout << "Downloaded " << qPrintable(currentDir) << " to "
                   << qPrintable(QDir::toNativeSeparators(
-                                QDir(currentLocalDir).canonicalPath()));
+                                QDir(currentLocalDir).canonicalPath()))
+				  << std::endl;
     }
 
     qDeleteAll(openedFiles);
@@ -70,12 +74,53 @@ void Spider::ftpListInfo(const QUrlInfo &urlInfo)
                 return;
             }
 
-            ftp.get(urlInfo.name(), file);
+            getID = ftp.get(urlInfo.name(), file);
+			std::cout << "get:" << getID << std::endl;
             openedFiles.append(file);
         }
     } else if (urlInfo.isDir() && !urlInfo.isSymLink()) {
         pendingDirs.append(currentDir + "/" + urlInfo.name());
     }
+}
+
+
+void Spider::ftpCommandStarted(int id)
+{
+	if (id == connectID) {
+		std::cout << qPrintable(tr("[start]: connect(%1)").arg(id)) << std::endl;
+	} else if (id == cdID) {
+		std::cout << qPrintable(tr("[start]: cd(%1)").arg(id)) << std::endl;
+	} else if (id == getID) {
+		std::cout << qPrintable(tr("[start]: get(%1)").arg(id)) << std::endl;
+	} else if (id == listID) {
+		std::cout << qPrintable(tr("[start]: list(%1)").arg(id)) << std::endl;
+	} else if (id == loginID) {
+		std::cout << qPrintable(tr("[start]: login(%1)").arg(id)) << std::endl;
+	} else {
+		std::cout << qPrintable(tr("[start]: UNKNOWN(%1)").arg(id)) << std::endl;
+	}
+}
+
+
+void Spider::ftpCommandFinished(int id, bool error)
+{
+	if (!error){
+		if (id == connectID) {
+			std::cout << qPrintable(tr("[finished]: connect(%1)").arg(id)) << std::endl;
+		} else if (id == cdID) {
+			std::cout << qPrintable(tr("[finished]: cd(%1)").arg(id)) << std::endl;
+		} else if (id == getID) {
+			std::cout << qPrintable(tr("[finished]: get(%1)").arg(id)) << std::endl;
+		} else if (id == listID) {
+			std::cout << qPrintable(tr("[finished]: list(%1)").arg(id)) << std::endl;
+		} else if (id == loginID) {
+			std::cout << qPrintable(tr("[finished]: login(%1)").arg(id)) << std::endl;
+		} else {
+			std::cout << qPrintable(tr("[finished]: UNKNOWN(%1)").arg(id)) << std::endl;
+		}
+	} else {
+		std::cout << "[finished]: error!!!" << std::endl;
+	}
 }
 
 void Spider::processNextDirectory()
@@ -85,8 +130,8 @@ void Spider::processNextDirectory()
         currentLocalDir = "downloads/" + currentDir;
         QDir(".").mkpath(currentLocalDir);
 
-        ftp.cd(currentDir);
-        ftp.list();
+        cdID = ftp.cd(currentDir);
+        listID = ftp.list();
     } else {
         emit done();
     }

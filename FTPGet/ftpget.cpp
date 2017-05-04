@@ -38,9 +38,8 @@ bool FtpGet::getFile(const QUrl &url)
                   << qPrintable(file.errorString()) << std::endl;
         return false;
     }
-
-    ftp.connectToHost(url.host(), url.port(14147));
-    ftp.login();
+    ftp.connectToHost(url.host(), url.port(21));
+    ftp.login("brianyi", "123456");
     ftp.get(url.path(), &file);
     ftp.close();
     return true;

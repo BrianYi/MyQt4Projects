@@ -16,7 +16,7 @@
 ## IconEditor
 * QImage用法
 * paintEvent用法
-## MyPlotter
+## MyPlotter(My prj)
 * QRegExpValidator用法
 * paintEvent(QPaintEvent *event)用法
 * mousePressEvent(QMouseEvent *event)用法
@@ -49,7 +49,7 @@
 * QGraphicsScene用法
 * QGraphicsView用法
 * wheelEvent(QWheelEvent *event)用法
-## Diagram、PuzzleGame
+## Diagram、PuzzleGame(My prj)
 * QGraphicsItem用法
 * QGraphicsScene用法
 * QGraphicsView用法
@@ -123,3 +123,6 @@
 ## FTPGet
 * QFtp用法
 ## Spider
+* QFtp用法
+* 记录QFtp的指令调用顺序
+## TinyFTP(My prj)
