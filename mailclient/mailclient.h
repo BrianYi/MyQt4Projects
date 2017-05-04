@@ -1,20 +1,27 @@
 #ifndef MAILCLIENT_H
 #define MAILCLIENT_H
 
-#include <QtGui>
+#include <QMainWindow>
 
-class mailclient : public QMainWindow
+class QIcon;
+class QSplitter;
+class QTextEdit;
+class QTreeWidget;
+
+class MailClient : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    mailclient(QWidget *parent = 0, Qt::WFlags flags = 0);
-    ~mailclient();
+    MailClient();
+
 protected:
     void closeEvent(QCloseEvent *event);
+
 private:
     void addFolder(const QIcon &icon, const QString &name);
-    void addMessage(const QString &subject, const QString &from, const QString &date);
+    void addMessage(const QString &subject, const QString &from,
+        const QString &date);
     void readSettings();
     void writeSettings();
 
@@ -25,4 +32,4 @@ private:
     QTextEdit *textEdit;
 };
 
-#endif // MAILCLIENT_H
+#endif

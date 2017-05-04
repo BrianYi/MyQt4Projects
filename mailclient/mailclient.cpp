@@ -1,28 +1,27 @@
+#include <QtGui>
+
 #include "mailclient.h"
 
-mailclient::mailclient(QWidget *parent, Qt::WFlags flags)
-    : QMainWindow(parent, flags)
+MailClient::MailClient()
 {
     QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
-    QIcon trashIcon(style()->standardPixmap(QStyle::SP_TrashIcon));
+    QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon));
 
     QStringList folderLabels;
     folderLabels << tr("Folders");
 
-    foldersTreeWidget = new QTreeWidget(this);
+    foldersTreeWidget = new QTreeWidget;
     foldersTreeWidget->setHeaderLabels(folderLabels);
     addFolder(folderIcon, tr("Inbox"));
     addFolder(folderIcon, tr("Outbox"));
     addFolder(folderIcon, tr("Sent"));
     addFolder(trashIcon, tr("Trash"));
-    
 
     QStringList messageLabels;
     messageLabels << tr("Subject") << tr("Sender") << tr("Date");
 
     messagesTreeWidget = new QTreeWidget;
     messagesTreeWidget->setHeaderLabels(messageLabels);
-
     addMessage(tr("Happy New Year!"),
         tr("Grace K. <grace@software-inc.com>"),
         tr("2006-12-31"));
@@ -44,11 +43,10 @@ mailclient::mailclient(QWidget *parent, Qt::WFlags flags)
     addMessage(tr("Re: Accounts"),
         tr("Andy <andy@nospam.com>"),
         tr("2007-01-03"));
-
     messagesTreeWidget->resizeColumnToContents(0);
     messagesTreeWidget->resizeColumnToContents(1);
 
-    textEdit = new QTextEdit(this);
+    textEdit = new QTextEdit;
     textEdit->setReadOnly(true);
     textEdit->setHtml("<table bolder=0>"
         "<tr><td align=right><b>Subject:</b>"
@@ -76,36 +74,30 @@ mailclient::mailclient(QWidget *parent, Qt::WFlags flags)
     menuBar()->addMenu(tr("&Message"));
     menuBar()->addMenu(tr("&Settings"));
     menuBar()->addMenu(tr("&Help"));
-    statusBar()->showMessage(tr("No new message on server"));
+    statusBar()->showMessage(tr("No new messages on server"));
 
     rightSplitter = new QSplitter(Qt::Vertical);
     rightSplitter->addWidget(messagesTreeWidget);
     rightSplitter->addWidget(textEdit);
-    rightSplitter->setStretchFactor(1,1);
-
+    rightSplitter->setStretchFactor(1, 1);
 
     mainSplitter = new QSplitter(Qt::Horizontal);
     mainSplitter->addWidget(foldersTreeWidget);
     mainSplitter->addWidget(rightSplitter);
-    mainSplitter->setStretchFactor(1,1);
+    mainSplitter->setStretchFactor(1, 1);
     setCentralWidget(mainSplitter);
 
     setWindowTitle(tr("Mail Client"));
     readSettings();
 }
 
-mailclient::~mailclient()
-{
-    
-}
-
-void mailclient::closeEvent(QCloseEvent *event)
+void MailClient::closeEvent(QCloseEvent *event)
 {
     writeSettings();
     event->accept();
 }
 
-void mailclient::addFolder(const QIcon &icon, const QString &name)
+void MailClient::addFolder(const QIcon &icon, const QString &name)
 {
     QTreeWidgetItem *root;
     if (foldersTreeWidget->topLevelItemCount() == 0) {
@@ -113,42 +105,43 @@ void mailclient::addFolder(const QIcon &icon, const QString &name)
         root->setText(0, tr("Mail"));
         foldersTreeWidget->setItemExpanded(root, true);
     } else {
-    	root = foldersTreeWidget->topLevelItem(0);
+        root = foldersTreeWidget->topLevelItem(0);
     }
 
     QTreeWidgetItem *newItem = new QTreeWidgetItem(root);
     newItem->setText(0, name);
     newItem->setIcon(0, icon);
 
-    if (!foldersTreeWidget->currentItem()) {
+    if (!foldersTreeWidget->currentItem())
         foldersTreeWidget->setCurrentItem(newItem);
-    }
 }
 
-void mailclient::addMessage(const QString &subject, const QString &from, const QString &date)
+void MailClient::addMessage(const QString &subject, const QString &from,
+    const QString &date)
 {
     QTreeWidgetItem *newItem = new QTreeWidgetItem(messagesTreeWidget);
     newItem->setText(0, subject);
     newItem->setText(1, from);
     newItem->setText(2, date);
 
-    if (!messagesTreeWidget->currentItem()) {
+    if (!messagesTreeWidget->currentItem())
         messagesTreeWidget->setCurrentItem(newItem);
-    }
 }
 
-void mailclient::readSettings()
+void MailClient::readSettings()
 {
     QSettings settings("Software Inc.", "Mail Client");
 
     settings.beginGroup("mainWindow");
     restoreGeometry(settings.value("geometry").toByteArray());
-    mainSplitter->restoreState(settings.value("mainSplitter").toByteArray());
-    rightSplitter->restoreState(settings.value("rightSplitter").toByteArray());
+    mainSplitter->restoreState(
+        settings.value("mainSplitter").toByteArray());
+    rightSplitter->restoreState(
+        settings.value("rightSplitter").toByteArray());
     settings.endGroup();
 }
 
-void mailclient::writeSettings()
+void MailClient::writeSettings()
 {
     QSettings settings("Software Inc.", "Mail Client");
 

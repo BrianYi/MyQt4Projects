@@ -1,8 +1,8 @@
 #include <QtCore>
 #include <iostream>
 
-const int DataSize = 100000;
-const int BufferSize = 4096;
+const int DataSize = 256;
+const int BufferSize = 128;
 char buffer[BufferSize];
 
 QSemaphore freeSpace(BufferSize);
