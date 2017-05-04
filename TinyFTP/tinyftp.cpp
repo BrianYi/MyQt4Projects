@@ -4,20 +4,19 @@ TinyFTP::TinyFTP(QWidget *parent)
 	: QMainWindow(parent)
 {
 	splitter = new QSplitter(this);
-	localFileSystemModel = new FileSystemModel(this);
-	localFileSystemModel->setReadOnly(true);
-	QModelIndex rootIndex = localFileSystemModel->setRootPath(QDir::currentPath());
+	localDirTableModel = new TableModel(this);
+	localDirTableModel->setRootPath(QDir::currentPath());
 
-	localTreeView = new QTreeView(this);
-	localTreeView->setModel(localFileSystemModel);
-	localTreeView->setRootIsDecorated(false);
-	localTreeView->setRootIndex(rootIndex);
-	localTreeView->header()->setStretchLastSection(true);
-	localTreeView->resizeColumnToContents(0);
-	localTreeView->setExpandsOnDoubleClick(false);
+	localDirTableView = new QTableView(this);
+	localDirTableView->setModel(localDirTableModel);
+	localDirTableView->setAlternatingRowColors(true);
+    localDirTableView->horizontalHeader()->setStretchLastSection(true);
+    localDirTableView->resizeColumnsToContents();
+    localDirTableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    localDirTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-	splitter->addWidget(localTreeView);
-	setCentralWidget(localTreeView);
+	splitter->addWidget(localDirTableView);
+	setCentralWidget(splitter);
 }
 
 TinyFTP::~TinyFTP()

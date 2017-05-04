@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QtGui>
-#include "filesystemmodel.h"
+#include "tablemodel.h"
 
 class TinyFTP : public QMainWindow
 {
@@ -15,8 +15,8 @@ public:
 
 private:
 	QSplitter *splitter;
-	FileSystemModel *localFileSystemModel;
-	QTreeView *localTreeView;
+	TableModel *localDirTableModel;
+	QTableView *localDirTableView;
 };
 
 #endif // TINYFTP_H

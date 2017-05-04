@@ -11,7 +11,6 @@
 * QTableWidget用法
 * QTableWidgetItem派生类用法
 * QSettings的用法
-![](https://github.com/BrianYi/MyQt4Projects/tree/master/images/spreadsheet.png)
 ## HexSpinBox
 * QRegExpValidator用法
 * QSpinBox用法
