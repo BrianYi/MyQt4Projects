@@ -5,14 +5,13 @@
 ![](https://img.shields.io/github/stars/BrianYi/MyQt4Projects.md.svg) ![](https://img.shields.io/github/forks/BrianYi/MyQt4Projects.md.svg) ![](https://img.shields.io/github/tag/BrianYi/MyQt4Projects.md.svg) ![](https://img.shields.io/github/release/BrianYi/MyQt4Projects.md.svg) ![](https://img.shields.io/github/issues/BrianYi/MyQt4Projects.md.svg) ![](https://img.shields.io/bower/v/MyQt4Projects.md.svg)
 
 
-**Notice: C++ GUI Programming with Qt 4 (second edition) by Jasmin Blanchette and Mark Summerfield.**
-**Mostly projects are from the book C++ GUI Programming with Qt 4, the book author reserver the copyright**
+**Notice: C++ GUI Programming with Qt 4 (second edition) by Jasmin Blanchette and Mark Summerfield.Mostly projects are from the book C++ GUI Programming with Qt 4, the book author reserver the copyright**
 
 ## SpreadSheet
 * QTableWidget用法
 * QTableWidgetItem派生类用法
 * QSettings的用法
-![](https://github.com/BrianYi/MyQt4Projects/tree/master/images/SpreadSheet.png)
+![](https://github.com/BrianYi/MyQt4Projects/tree/master/images/spreadsheet.png)
 ## HexSpinBox
 * QRegExpValidator用法
 * QSpinBox用法
