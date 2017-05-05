@@ -3,7 +3,10 @@
 
 #include <QWidget>
 #include <QtGui>
-#include "tablemodel.h"
+#include <QFtp>
+#include "dirtablemodel.h"
+#include "localdirwidget.h"
+#include "remotedirwidget.h"
 
 class TinyFTP : public QMainWindow
 {
@@ -12,11 +15,28 @@ class TinyFTP : public QMainWindow
 public:
 	TinyFTP(QWidget *parent = 0);
 	~TinyFTP();
-
+protected:
+	void writeSettings();
+	void readSettings();
+	void closeEvent(QCloseEvent *event);
 private:
+	QLabel *userNameLabel;
+	QLineEdit *userNameLineEdit;
+	QLabel *passwordLabel;
+	QLineEdit *passwordLineEdit;
+	QLabel *portLabel;
+	QLineEdit *portLineEdit;
+	QCheckBox *anonymousCheckBox;
+	QLabel *addressLabel;
+	QComboBox *addressComboBox;
+	QPushButton *goPushButton;
+
+	QTabWidget *localDirTabWidget;
+	QTabWidget *remoteDirTabWidget;
+
 	QSplitter *splitter;
-	TableModel *localDirTableModel;
-	QTableView *localDirTableView;
+	QStatusBar *ftpStatusBar;
+	QFtp *ftp;
 };
 
 #endif // TINYFTP_H

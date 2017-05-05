@@ -50,13 +50,31 @@
     <ClCompile Include="GeneratedFiles\Release\moc_tinyftp.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="tablemodel.cpp">
+    <ClCompile Include="dirtablemodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_tablemodel.cpp">
+    <ClCompile Include="GeneratedFiles\Debug\moc_dirtablemodel.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_tablemodel.cpp">
+    <ClCompile Include="GeneratedFiles\Release\moc_dirtablemodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="localdirwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_localdirwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_localdirwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="remotedirwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_remotedirwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_remotedirwidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,7 +85,13 @@
     <CustomBuild Include="tinyftp.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="tablemodel.h">
+    <CustomBuild Include="dirtablemodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="localdirwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="remotedirwidget.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

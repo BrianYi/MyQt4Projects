@@ -1,15 +1,21 @@
-#ifndef TABLEMODEL_H
-#define TABLEMODEL_H
+#ifndef DIRTABLEMODEL_H
+#define DIRTABLEMODEL_H
 
 #include <QAbstractTableModel>
 #include <QtGui>
 
-class TableModel : public QAbstractTableModel
+class DirTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    TableModel(QObject *parent = 0);
-    ~TableModel();
+	enum {
+		Byte,
+		KiloByte,
+		MegaByte,
+		GigaByte
+	};
+    DirTableModel(QObject *parent = 0);
+    ~DirTableModel();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -17,9 +23,12 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation,
         int role = Qt::DisplayRole) const;
     void setRootPath(const QString &path);
+	void sort(int column, Qt::SortOrder order /* = Qt::AscendingOrder */);
+	public slots:
+		void setRootIndex(const QModelIndex &index);
 private:
     QList<QFileInfo> files;
     QFileIconProvider provider;
 };
 
-#endif // TABLEMODEL_H
+#endif // DIRTABLEMODEL_H
