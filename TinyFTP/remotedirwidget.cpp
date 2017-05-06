@@ -1,4 +1,5 @@
 #include "remotedirwidget.h"
+#include "logthread.h"
 
 RemoteDirWidget::RemoteDirWidget(QWidget *parent)
 	: QWidget(parent)
@@ -29,6 +30,12 @@ RemoteDirWidget::RemoteDirWidget(QWidget *parent)
 	logTextEdit->setReadOnly(true);
 	remoteDirStatusBar = new QStatusBar(this);
 
+//     username = tr("");
+//     password = tr("");
+//     port = 21;
+//     address = tr("");
+    ftpClient = new FTPClient(this);
+
 	QHBoxLayout *topHBoxLayout = new QHBoxLayout;
 	topHBoxLayout->addWidget(dotdotDirToolButton);
 	topHBoxLayout->addWidget(refreshDirToolButton);
@@ -45,9 +52,58 @@ RemoteDirWidget::RemoteDirWidget(QWidget *parent)
 	setWindowTitle(tr("±¾µØ"));
 
 	connect(remoteDirTableView, SIGNAL(doubleClicked(const QModelIndex &)), remoteDirTableModel, SLOT(setRootIndex(const QModelIndex &)));
+    connect(ftpClient, SIGNAL(listInfo(const QUrlInfo &)), this, SLOT(listInfo(const QUrlInfo &)));
 }
 
 RemoteDirWidget::~RemoteDirWidget()
+{
+
+}
+
+// void RemoteDirWidget::setLoginInfo(const QString &port, const QString &address, 
+//     const QString &usrname/* = QString()*/, const QString &pwd/* = QString()*/)
+// {
+//     this->username = usrname;
+//     this->password = pwd;
+//     this->port = port;
+//     this->address = address;
+// }
+
+void RemoteDirWidget::writeLog(const QString &logData)
+{
+    logTextEdit->append(logData);
+}
+
+bool RemoteDirWidget::getDirectory(QUrl url, const QString &port, const QString &address, 
+    const QString &username/* = QString()*/, const QString &password/* = QString()*/)
+{
+    if (!url.isValid()) {
+        LOGSTREAM << DataPair(this, tr("Error: Invalid URL"));
+        return false;
+    }
+
+    if (url.scheme() != "ftp") {
+//         LOGSTREAM << DataPair(this, tr("Error: URL must start with 'ftp:'"));
+//         return false;
+        url.setHost(tr("ftp://") + url.host());
+    }
+
+    ftpClient->connectToHost(url.host(), url.port(21));
+    ftpClient->login(username, password);
+
+    QString path = url.path();
+    if (path.isEmpty())
+        path = "/";
+
+//     pendingDirs.append(path);
+//     processNextDirectory();
+    ftpClient->cd(path);
+    ftpClient->list();
+
+    return true;
+}
+
+void RemoteDirWidget::listInfo(const QUrlInfo &urlInfo)
 {
 
 }

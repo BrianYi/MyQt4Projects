@@ -11,7 +11,6 @@ class LocalDirWidget : public QWidget
 public:
 	LocalDirWidget(QWidget *parent = 0);
 	~LocalDirWidget();
-
 private:
 	DirTableModel *localDirTableModel;
 	QTableView *localDirTableView;

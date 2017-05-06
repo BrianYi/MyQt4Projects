@@ -42,11 +42,9 @@ LocalDirWidget::LocalDirWidget(QWidget *parent)
 	setLayout(mainLayout);
 
 	setWindowTitle(tr("±¾µØ"));
-
 	connect(localDirTableView, SIGNAL(doubleClicked(const QModelIndex &)), localDirTableModel, SLOT(setRootIndex(const QModelIndex &)));
 }
 
 LocalDirWidget::~LocalDirWidget()
 {
-
 }

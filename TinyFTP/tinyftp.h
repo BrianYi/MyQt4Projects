@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QtGui>
-#include <QFtp>
 #include "dirtablemodel.h"
 #include "localdirwidget.h"
 #include "remotedirwidget.h"
@@ -14,11 +13,15 @@ class TinyFTP : public QMainWindow
 
 public:
 	TinyFTP(QWidget *parent = 0);
-	~TinyFTP();
+    public slots:
+        void connectToFTPServer();
 protected:
 	void writeSettings();
 	void readSettings();
 	void closeEvent(QCloseEvent *event);
+    bool okToConnectToFTPServer();
+    private slots:
+        void anonymous(int state);
 private:
 	QLabel *userNameLabel;
 	QLineEdit *userNameLineEdit;
@@ -36,7 +39,7 @@ private:
 
 	QSplitter *splitter;
 	QStatusBar *ftpStatusBar;
-	QFtp *ftp;
+    QStringList addressList;
 };
 
 #endif // TINYFTP_H
