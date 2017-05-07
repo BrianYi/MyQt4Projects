@@ -2,7 +2,7 @@
 #define LOCALDIRWIDGET_H
 
 #include <QtGui>
-#include "dirtablemodel.h"
+#include "dirtreemodel.h"
 
 class LocalDirWidget : public QWidget
 {
@@ -12,8 +12,8 @@ public:
 	LocalDirWidget(QWidget *parent = 0);
 	~LocalDirWidget();
 private:
-	DirTableModel *localDirTableModel;
-	QTableView *localDirTableView;
+	DirTreeModel *localDirTreeModel;
+	QTreeView *localDirTreeView;
 	QFileSystemModel *localDirFileSystemModel;
 	QComboBox *localDirComboBox;
 	QToolButton *dotdotDirToolButton;

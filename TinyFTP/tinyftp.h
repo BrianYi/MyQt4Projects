@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QtGui>
-#include "dirtablemodel.h"
+#include "dirtreemodel.h"
 #include "localdirwidget.h"
 #include "remotedirwidget.h"
 

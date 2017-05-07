@@ -6,10 +6,11 @@ TinyFTP::TinyFTP(QWidget *parent)
 	splitter = new QSplitter(Qt::Horizontal, this);
 	
 	userNameLabel = new QLabel(tr("用户:"), this);
-	userNameLineEdit = new QLineEdit(this);
+	userNameLineEdit = new QLineEdit(tr("brianyi"), this);
 
 	passwordLabel = new QLabel(tr("口令:"), this);
-	passwordLineEdit = new QLineEdit(this);
+	passwordLineEdit = new QLineEdit(tr("123456"), this);
+    passwordLineEdit->setEchoMode(QLineEdit::Password);
 
 	portLabel = new QLabel(tr("端口:"), this);
 	portLineEdit = new QLineEdit(tr("21"), this);
@@ -119,21 +120,24 @@ void TinyFTP::connectToFTPServer()
         password = tr("");
     }
     remoteDirTabWidget->setTabText(remoteDirTabWidget->currentIndex(), address);
-    remoteDirWidget->getDirectory(address, port, address, username, password);
+    remoteDirWidget->getDirectory(address, port, username, password);
 }
 
 bool TinyFTP::okToConnectToFTPServer()
 {
-    if (!anonymousCheckBox->isChecked()) {
-        if (userNameLineEdit->text().isEmpty() ||
-            passwordLineEdit->text().isEmpty()) {
-                return false;
-        }
-    }
-
-    if (portLineEdit->text().isEmpty() || 
-        addressComboBox->currentText().isEmpty())
-        return false;
+//     if (!anonymousCheckBox->isChecked()) {
+//         if (userNameLineEdit->text().isEmpty() ||
+//             passwordLineEdit->text().isEmpty()) {
+//                 ftpStatusBar->showMessage(tr("[*]用户名或密码不能为空!"));
+//                 return false;
+//         }
+//     }
+// 
+//     if (portLineEdit->text().isEmpty() || 
+//         addressComboBox->currentText().isEmpty()) {
+//             ftpStatusBar->showMessage(tr("[*]端口号或地址不能为空!"));            
+//             return false;
+//     }
 
     return true;
 }

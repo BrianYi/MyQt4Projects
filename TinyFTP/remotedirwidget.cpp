@@ -4,18 +4,19 @@
 RemoteDirWidget::RemoteDirWidget(QWidget *parent)
 	: QWidget(parent)
 {
-	remoteDirTableModel = new DirTableModel(this);
+	remoteDirTreeModel = new DirTreeModel(this);
 
-	remoteDirTableView = new QTableView(this);
-	remoteDirTableView->setModel(remoteDirTableModel);
-	remoteDirTableView->setAlternatingRowColors(true);
-	remoteDirTableView->horizontalHeader()->setStretchLastSection(true);
-	remoteDirTableView->resizeColumnsToContents();
-	remoteDirTableView->setSelectionMode(QAbstractItemView::SingleSelection);
-	remoteDirTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-	remoteDirTableView->setShowGrid(false);
-	remoteDirTableView->setSortingEnabled(true);
-	remoteDirTableView->sortByColumn(0, Qt::AscendingOrder);
+	remoteDirTreeView = new QTreeView(this);
+    remoteDirTreeView->setModel(remoteDirTreeModel);
+    remoteDirTreeView->header()->setStretchLastSection(true);   
+    remoteDirTreeView->resizeColumnToContents(0);
+	remoteDirTreeView->setAlternatingRowColors(true);
+	remoteDirTreeView->setSelectionMode(QAbstractItemView::SingleSelection);
+	remoteDirTreeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+	remoteDirTreeView->setSortingEnabled(true);
+	remoteDirTreeView->sortByColumn(0, Qt::AscendingOrder);
+    remoteDirTreeView->setItemsExpandable(false);
+    remoteDirTreeView->setRootIsDecorated(false);
 
 	remoteDirFileSystemModel = new QFileSystemModel(this);
 	remoteDirComboBox = new QComboBox(this);
@@ -43,7 +44,7 @@ RemoteDirWidget::RemoteDirWidget(QWidget *parent)
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addLayout(topHBoxLayout);
-	mainLayout->addWidget(remoteDirTableView);
+	mainLayout->addWidget(remoteDirTreeView);
 	mainLayout->addWidget(logTextEdit);
 	mainLayout->addWidget(remoteDirStatusBar);
 	mainLayout->setStretch(1,1);
@@ -51,8 +52,10 @@ RemoteDirWidget::RemoteDirWidget(QWidget *parent)
 
 	setWindowTitle(tr("±¾µØ"));
 
-	connect(remoteDirTableView, SIGNAL(doubleClicked(const QModelIndex &)), remoteDirTableModel, SLOT(setRootIndex(const QModelIndex &)));
-    connect(ftpClient, SIGNAL(listInfo(const QUrlInfo &)), this, SLOT(listInfo(const QUrlInfo &)));
+/*	connect(remoteDirTableView, SIGNAL(doubleClicked(const QModelIndex &)), remoteDirTableModel, SLOT(setRootIndex(const QModelIndex &)));*/
+    connect(remoteDirTreeView, SIGNAL(itemDoubleClicked(QTreeWidgetItem *)), this, SLOT(itemDoubleClicked(QTreeWidgetItem *)));
+    connect(ftpClient, SIGNAL(listInfo(const QUrlInfo &)), this, SLOT(ftpListInfo(const QUrlInfo &)));
+    connect(ftpClient, SIGNAL(done(bool)), this, SLOT(ftpDone(bool)));
 }
 
 RemoteDirWidget::~RemoteDirWidget()
@@ -74,19 +77,24 @@ void RemoteDirWidget::writeLog(const QString &logData)
     logTextEdit->append(logData);
 }
 
-bool RemoteDirWidget::getDirectory(QUrl url, const QString &port, const QString &address, 
+bool RemoteDirWidget::getDirectory(const QString &address, const QString &port, 
     const QString &username/* = QString()*/, const QString &password/* = QString()*/)
 {
+    QString urlAddress = address;
+    if (!urlAddress.startsWith(tr("ftp://"), Qt::CaseInsensitive)) {
+        urlAddress = tr("ftp://") + urlAddress;
+    }
+
+    QUrl url(urlAddress);
     if (!url.isValid()) {
         LOGSTREAM << DataPair(this, tr("Error: Invalid URL"));
         return false;
     }
 
-    if (url.scheme() != "ftp") {
-//         LOGSTREAM << DataPair(this, tr("Error: URL must start with 'ftp:'"));
-//         return false;
-        url.setHost(tr("ftp://") + url.host());
-    }
+//     if (url.scheme() != "ftp") {
+//          LOGSTREAM << DataPair(this, tr("Error: URL must start with 'ftp:'"));
+//          return false;
+//     }
 
     ftpClient->connectToHost(url.host(), url.port(21));
     ftpClient->login(username, password);
@@ -95,15 +103,66 @@ bool RemoteDirWidget::getDirectory(QUrl url, const QString &port, const QString 
     if (path.isEmpty())
         path = "/";
 
-//     pendingDirs.append(path);
-//     processNextDirectory();
-    ftpClient->cd(path);
-    ftpClient->list();
+/*    pendingDirs.append(path);*/
+
+    processDirectory(path);
 
     return true;
 }
 
-void RemoteDirWidget::listInfo(const QUrlInfo &urlInfo)
+void RemoteDirWidget::ftpListInfo(const QUrlInfo &urlInfo)
+{
+    if (urlInfo.isFile()) {
+        if (urlInfo.isReadable()) {
+            QString path = currentLocalDir + tr("/")
+                + QString::fromUtf8(urlInfo.name().toLatin1());
+            QFile file(path);
+            if (file.exists()) {
+                return ;
+            } else if (!file.open(QIODevice::WriteOnly)) {
+                LOGSTREAM << DataPair(this, tr("Warning: Cannot write file ") +
+                    QDir::toNativeSeparators(
+                    file.fileName()) +
+                    ": " + file.errorString());
+                return ;
+            }
+        }
+    } else if (urlInfo.isDir() && !urlInfo.isSymLink()) {
+        //pendingDirs.append(currentDir + "/" + urlInfo.name());
+        QString localDir = currentLocalDir + QString::fromUtf8(urlInfo.name().toLatin1());
+        QDir(".").mkpath(localDir);
+    }
+}
+
+
+void RemoteDirWidget::itemDoubleClicked(QTreeWidgetItem *item)
 {
 
+}
+
+
+void RemoteDirWidget::processDirectory(const QString &dir)
+{
+    currentDir = QString::fromUtf8(dir.toLatin1());
+    currentLocalDir = tr("cache/") + dir;
+    QDir(".").mkpath(currentLocalDir);
+    ftpClient->cd(currentDir);
+    ftpClient->list();
+}
+
+void RemoteDirWidget::ftpDone(bool error)
+{
+    if (error) {
+        LOGSTREAM << DataPair(this, tr("Error: ") + ftpClient->errorString());
+    } else {
+        LOGSTREAM << DataPair(this, tr("Downloaded ") + currentDir + tr(" to ") +
+            QDir::toNativeSeparators(QDir(currentLocalDir).canonicalPath()));
+    }
+    remoteDirTreeModel->setRootPath(currentLocalDir);
+   
+    if (remoteDirTreeModel->rowCount() > 1) {
+        for (int row = 1; row <= remoteDirTreeModel->rowCount(); row++) {
+            remoteDirTreeModel->setData(remoteDirTreeModel->index(row, 1), 5);
+        }
+    }
 }

@@ -15,10 +15,10 @@ class LogThread : public QThread
 
 public:
     static LogThread& log();
-    friend LogThread& operator << (LogThread &logThread, QPair<RemoteDirWidget*, QString> &data);
+    friend LogThread& operator << (LogThread &logThread, DataPair data);
 protected:
     void run();
-    void enqueue(QPair<RemoteDirWidget*, QString> &data);
+    void enqueue(DataPair data);
     void stop();
 private:
     LogThread(QObject *parent = 0);

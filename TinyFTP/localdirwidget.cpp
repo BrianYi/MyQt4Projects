@@ -3,19 +3,20 @@
 LocalDirWidget::LocalDirWidget(QWidget *parent)
 	: QWidget(parent)
 {
-	localDirTableModel = new DirTableModel(this);
-	localDirTableModel->setRootPath(QDir::currentPath());
+	localDirTreeModel = new DirTreeModel(this);
+	localDirTreeModel->setRootPath(QDir::currentPath());
 
-	localDirTableView = new QTableView(this);
-	localDirTableView->setModel(localDirTableModel);
-	localDirTableView->setAlternatingRowColors(true);
-	localDirTableView->horizontalHeader()->setStretchLastSection(true);
-	localDirTableView->resizeColumnsToContents();
-	localDirTableView->setSelectionMode(QAbstractItemView::SingleSelection);
-	localDirTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-	localDirTableView->setShowGrid(false);
-	localDirTableView->setSortingEnabled(true);
-	localDirTableView->sortByColumn(0, Qt::AscendingOrder);
+	localDirTreeView = new QTreeView(this);
+	localDirTreeView->setModel(localDirTreeModel);
+	localDirTreeView->header()->setStretchLastSection(true);
+	localDirTreeView->resizeColumnToContents(0);
+    localDirTreeView->setAlternatingRowColors(true);
+	localDirTreeView->setSelectionMode(QAbstractItemView::SingleSelection);
+	localDirTreeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+	localDirTreeView->setSortingEnabled(true);
+	localDirTreeView->sortByColumn(0, Qt::AscendingOrder);
+    localDirTreeView->setRootIsDecorated(false);
+    localDirTreeView->setItemsExpandable(false);
 
 	localDirFileSystemModel = new QFileSystemModel(this);
 	QModelIndex index = localDirFileSystemModel->setRootPath(QDir::currentPath());
@@ -37,12 +38,12 @@ LocalDirWidget::LocalDirWidget(QWidget *parent)
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addLayout(topHBoxLayout);
-	mainLayout->addWidget(localDirTableView);
+	mainLayout->addWidget(localDirTreeView);
 	mainLayout->addWidget(localDirStatusBar);
 	setLayout(mainLayout);
 
 	setWindowTitle(tr("±¾µØ"));
-	connect(localDirTableView, SIGNAL(doubleClicked(const QModelIndex &)), localDirTableModel, SLOT(setRootIndex(const QModelIndex &)));
+	connect(localDirTreeView, SIGNAL(doubleClicked(const QModelIndex &)), localDirTreeModel, SLOT(setRootIndex(const QModelIndex &)));
 }
 
 LocalDirWidget::~LocalDirWidget()

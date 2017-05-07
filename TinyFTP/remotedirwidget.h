@@ -3,7 +3,7 @@
 
 #include <QtGui>
 #include <QFtp>
-#include "dirtablemodel.h"
+#include "dirtreemodel.h"
 #include "ftpclient.h"
 
 class RemoteDirWidget : public QWidget
@@ -16,17 +16,20 @@ public:
     void writeLog(const QString &logData);
 //     void setLoginInfo(const QString &port, const QString &address, 
 //         const QString &usrname = QString(), const QString &pwd = QString());
-    bool getDirectory(QUrl url, const QString &port, const QString &address, 
-        const QString &usrname = QString(), const QString &pwd = QString());
+    bool getDirectory(const QString &address, const QString &port, const QString &usrname = QString(), 
+        const QString &pwd = QString());
     public slots:
-        void listInfo(const QUrlInfo &urlInfo);
+        void ftpListInfo(const QUrlInfo &urlInfo);
+        void itemDoubleClicked(QTreeWidgetItem *item);
+        void ftpDone(bool error);
 signals:
     void updateLoginInfo(const QString &usrname, 
         const QString &pwd, const QString &port, 
         const QString &address, bool isanonymous);
 private:
-	DirTableModel *remoteDirTableModel;
-	QTableView *remoteDirTableView;
+    void processDirectory(const QString &dir);
+	DirTreeModel *remoteDirTreeModel;
+	QTreeView *remoteDirTreeView;
 	QFileSystemModel *remoteDirFileSystemModel;
 	QComboBox *remoteDirComboBox;
 	QToolButton *dotdotDirToolButton;
@@ -38,6 +41,10 @@ private:
 //     QString port;
 //     QString address;
     FTPClient *ftpClient;
+    QFileIconProvider provider;
+    QStringList pendingDirs;
+    QString currentDir;
+    QString currentLocalDir;
 };
 
 #endif // REMOTEDIRWIDGET_H

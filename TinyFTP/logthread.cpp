@@ -32,7 +32,7 @@ LogThread &LogThread::log()
     return *instance;
 }
 
-LogThread& operator<<(LogThread &logThread, QPair<RemoteDirWidget*, QString> &data)
+LogThread& operator<<(LogThread &logThread, DataPair data)
 {
     if (data.first) {
         logThread.enqueue(data);
@@ -40,7 +40,7 @@ LogThread& operator<<(LogThread &logThread, QPair<RemoteDirWidget*, QString> &da
     return logThread;
 }
 
-void LogThread::enqueue(QPair<RemoteDirWidget*, QString> &data)
+void LogThread::enqueue(DataPair data)
 {
     QMutexLocker locker(&mutex);
     logQueue.enqueue(data);

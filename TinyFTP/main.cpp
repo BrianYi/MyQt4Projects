@@ -5,10 +5,9 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
-	QTextCodec *codec = QTextCodec::codecForName("GBK");//ַי¿צ1
-	QTextCodec::setCodecForTr(codec);
-	QTextCodec::setCodecForLocale(codec);
-	QTextCodec::setCodecForCStrings(codec);
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("gbk"));
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("gbk"));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName("gbk"));
 
 	TinyFTP w;
 	w.show();
