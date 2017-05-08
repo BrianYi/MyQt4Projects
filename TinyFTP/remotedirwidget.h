@@ -18,10 +18,10 @@ public:
 //         const QString &usrname = QString(), const QString &pwd = QString());
     bool getDirectory(const QString &address, const QString &port, const QString &usrname = QString(), 
         const QString &pwd = QString());
-    public slots:
+	private slots:
         void ftpListInfo(const QUrlInfo &urlInfo);
-        void itemDoubleClicked(QTreeWidgetItem *item);
         void ftpDone(bool error);
+		void setRootIndex(const QModelIndex &index);
 signals:
     void updateLoginInfo(const QString &usrname, 
         const QString &pwd, const QString &port, 
@@ -43,8 +43,10 @@ private:
     FTPClient *ftpClient;
     QFileIconProvider provider;
     QStringList pendingDirs;
+	QQueue<qint64> filesSize;
     QString currentDir;
     QString currentLocalDir;
+	QMutex mutex;
 };
 
 #endif // REMOTEDIRWIDGET_H

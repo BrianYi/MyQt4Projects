@@ -53,7 +53,7 @@ RemoteDirWidget::RemoteDirWidget(QWidget *parent)
 	setWindowTitle(tr("±¾µØ"));
 
 /*	connect(remoteDirTableView, SIGNAL(doubleClicked(const QModelIndex &)), remoteDirTableModel, SLOT(setRootIndex(const QModelIndex &)));*/
-    connect(remoteDirTreeView, SIGNAL(itemDoubleClicked(QTreeWidgetItem *)), this, SLOT(itemDoubleClicked(QTreeWidgetItem *)));
+    connect(remoteDirTreeView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(setRootIndex(const QModelIndex &)));
     connect(ftpClient, SIGNAL(listInfo(const QUrlInfo &)), this, SLOT(ftpListInfo(const QUrlInfo &)));
     connect(ftpClient, SIGNAL(done(bool)), this, SLOT(ftpDone(bool)));
 }
@@ -87,7 +87,7 @@ bool RemoteDirWidget::getDirectory(const QString &address, const QString &port,
 
     QUrl url(urlAddress);
     if (!url.isValid()) {
-        LOGSTREAM << DataPair(this, tr("Error: Invalid URL"));
+        writeLog(tr("Error: Invalid URL"));
         return false;
     }
 
@@ -114,13 +114,14 @@ void RemoteDirWidget::ftpListInfo(const QUrlInfo &urlInfo)
 {
     if (urlInfo.isFile()) {
         if (urlInfo.isReadable()) {
+			filesSize.push_back(urlInfo.size());
             QString path = currentLocalDir + tr("/")
                 + QString::fromUtf8(urlInfo.name().toLatin1());
             QFile file(path);
             if (file.exists()) {
                 return ;
             } else if (!file.open(QIODevice::WriteOnly)) {
-                LOGSTREAM << DataPair(this, tr("Warning: Cannot write file ") +
+                writeLog(tr("Warning: Cannot write file ") +
                     QDir::toNativeSeparators(
                     file.fileName()) +
                     ": " + file.errorString());
@@ -134,13 +135,6 @@ void RemoteDirWidget::ftpListInfo(const QUrlInfo &urlInfo)
     }
 }
 
-
-void RemoteDirWidget::itemDoubleClicked(QTreeWidgetItem *item)
-{
-
-}
-
-
 void RemoteDirWidget::processDirectory(const QString &dir)
 {
     currentDir = QString::fromUtf8(dir.toLatin1());
@@ -153,16 +147,37 @@ void RemoteDirWidget::processDirectory(const QString &dir)
 void RemoteDirWidget::ftpDone(bool error)
 {
     if (error) {
-        LOGSTREAM << DataPair(this, tr("Error: ") + ftpClient->errorString());
+        writeLog(tr("Error: ") + ftpClient->errorString());
     } else {
-        LOGSTREAM << DataPair(this, tr("Downloaded ") + currentDir + tr(" to ") +
+        writeLog(tr("Downloaded ") + currentDir + tr(" to ") +
             QDir::toNativeSeparators(QDir(currentLocalDir).canonicalPath()));
     }
     remoteDirTreeModel->setRootPath(currentLocalDir);
-   
+	remoteDirTreeView->resizeColumnToContents(0);
     if (remoteDirTreeModel->rowCount() > 1) {
-        for (int row = 1; row <= remoteDirTreeModel->rowCount(); row++) {
-            remoteDirTreeModel->setData(remoteDirTreeModel->index(row, 1), 5);
+        for (int row = 0; row < remoteDirTreeModel->rowCount(); row++) {
+			QModelIndex index = remoteDirTreeModel->index(row, 1);
+			Node *node = static_cast<Node*>(index.internalPointer());
+			if (node->isFile) {
+				remoteDirTreeModel->setData(index, filesSize.takeFirst());
+			}
         }
     }
+
+	if (!filesSize.isEmpty()) {
+		writeLog(tr("Error: file sizes is not correspond with files"));
+	}
+}
+
+void RemoteDirWidget::setRootIndex(const QModelIndex &index)
+{
+	if (!index.isValid()) {
+		return ;
+	}
+	Node *node = static_cast<Node*>(index.internalPointer());
+	if (node->isDir) {
+		processDirectory(currentDir + node->fileName + QDir::separator());		
+	}
+	/*remoteDirTreeModel->set(index);*/
+// 	remoteDirTreeView->resizeColumnToContents(0);
 }

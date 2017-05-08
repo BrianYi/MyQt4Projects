@@ -11,10 +11,12 @@ class LocalDirWidget : public QWidget
 public:
 	LocalDirWidget(QWidget *parent = 0);
 	~LocalDirWidget();
+	private slots:
+		void setRootIndex(const QModelIndex &index);
 private:
 	DirTreeModel *localDirTreeModel;
 	QTreeView *localDirTreeView;
-	QFileSystemModel *localDirFileSystemModel;
+	DirTreeModel *localDirFileSystemModel;
 	QComboBox *localDirComboBox;
 	QToolButton *dotdotDirToolButton;
 	QToolButton *refreshDirToolButton;
