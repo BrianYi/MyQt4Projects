@@ -25,13 +25,15 @@ LocalDirWidget::LocalDirWidget(QWidget *parent)
 	
 	localDirComboTreeView = new QTreeView(this);
 	localDirComboTreeView->setModel(localDirFileSystemModel);
-	localDirComboTreeView->resizeColumnToContents(0);
-	localDirComboTreeView->hideColumn(1);
-	localDirComboTreeView->hideColumn(2);
-	localDirComboTreeView->hideColumn(3);
-	localDirComboTreeView->setHeaderHidden(true);
-	localDirComboTreeView->expand(index);
-	localDirComboTreeView->scrollTo(index);
+    localDirComboTreeView->resizeColumnToContents(0);
+    localDirComboTreeView->hideColumn(1);
+    localDirComboTreeView->hideColumn(2);
+    localDirComboTreeView->hideColumn(3);
+    localDirComboTreeView->setHeaderHidden(true);
+    localDirComboTreeView->expand(index);
+    localDirComboTreeView->scrollTo(index);
+    localDirComboTreeView->setCurrentIndex(index);
+    localDirComboTreeView->setItemsExpandable(true);
 	
 	localDirComboBox = new QComboBox(this);
 	localDirComboBox->setModel(localDirFileSystemModel);

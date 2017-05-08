@@ -101,7 +101,7 @@ bool RemoteDirWidget::getDirectory(const QString &address, const QString &port,
 
     QString path = url.path();
     if (path.isEmpty())
-        path = "/";
+        path = QDir::separator();
 
 /*    pendingDirs.append(path);*/
 
@@ -115,8 +115,9 @@ void RemoteDirWidget::ftpListInfo(const QUrlInfo &urlInfo)
     if (urlInfo.isFile()) {
         if (urlInfo.isReadable()) {
 			filesSize.push_back(urlInfo.size());
-            QString path = currentLocalDir + tr("/")
-                + QString::fromUtf8(urlInfo.name().toLatin1());
+            filesModifyDate.append(urlInfo.lastModified().toString("yyyy/MM/dd hh:mm"));
+            QString path = currentLocalDir + QDir::separator()
+                + ftpClient->decoded(urlInfo.name());
             QFile file(path);
             if (file.exists()) {
                 return ;
@@ -130,18 +131,20 @@ void RemoteDirWidget::ftpListInfo(const QUrlInfo &urlInfo)
         }
     } else if (urlInfo.isDir() && !urlInfo.isSymLink()) {
         //pendingDirs.append(currentDir + "/" + urlInfo.name());
-        QString localDir = currentLocalDir + QString::fromUtf8(urlInfo.name().toLatin1());
+        filesModifyDate.append(urlInfo.lastModified().toString("yyyy/MM/dd hh:mm"));
+        QString localDir = currentLocalDir + ftpClient->decoded(urlInfo.name());
         QDir(".").mkpath(localDir);
+        return ;
     }
 }
 
 void RemoteDirWidget::processDirectory(const QString &dir)
 {
-    currentDir = QString::fromUtf8(dir.toLatin1());
-    currentLocalDir = tr("cache/") + dir;
+    currentDir = dir;
+    currentLocalDir = tr("cache") + dir;
     QDir(".").mkpath(currentLocalDir);
-    ftpClient->cd(currentDir);
-    ftpClient->list();
+    //ftpClient->cd(currentDir);
+    ftpClient->list(currentDir);
 }
 
 void RemoteDirWidget::ftpDone(bool error)
@@ -154,19 +157,26 @@ void RemoteDirWidget::ftpDone(bool error)
     }
     remoteDirTreeModel->setRootPath(currentLocalDir);
 	remoteDirTreeView->resizeColumnToContents(0);
-    if (remoteDirTreeModel->rowCount() > 1) {
+    if (remoteDirTreeModel->rowCount()) {
         for (int row = 0; row < remoteDirTreeModel->rowCount(); row++) {
 			QModelIndex index = remoteDirTreeModel->index(row, 1);
+            QModelIndex index2 = remoteDirTreeModel->index(row, 3);
 			Node *node = static_cast<Node*>(index.internalPointer());
 			if (node->isFile) {
-				remoteDirTreeModel->setData(index, filesSize.takeFirst());
+                remoteDirTreeModel->setData(index, filesSize.takeFirst());
 			}
+            if (node->isDir && node->fileName == tr("..")) {
+                remoteDirTreeModel->setData(index2, "");
+            } else
+                remoteDirTreeModel->setData(index2, filesModifyDate.takeFirst());
         }
     }
 
 	if (!filesSize.isEmpty()) {
 		writeLog(tr("Error: file sizes is not correspond with files"));
-	}
+	} else if (!filesModifyDate.isEmpty()) {
+        writeLog(tr("Error: file modify date is not correspond with files"));
+    }
 }
 
 void RemoteDirWidget::setRootIndex(const QModelIndex &index)
@@ -176,7 +186,16 @@ void RemoteDirWidget::setRootIndex(const QModelIndex &index)
 	}
 	Node *node = static_cast<Node*>(index.internalPointer());
 	if (node->isDir) {
-		processDirectory(currentDir + node->fileName + QDir::separator());		
+        if (node->fileName == tr("..")) {
+            if (!currentDir.endsWith(QDir::separator()) || currentDir == QDir::separator())
+                return ;
+            currentDir.resize(currentDir.length() - 1);
+            int lastSeparatorIndex = currentDir.lastIndexOf(QDir::separator());
+            if (lastSeparatorIndex != -1)
+                currentDir = currentDir.mid(0, lastSeparatorIndex + 1);
+        } else
+		    currentDir += node->fileName + QDir::separator();	
+        processDirectory(currentDir);
 	}
 	/*remoteDirTreeModel->set(index);*/
 // 	remoteDirTreeView->resizeColumnToContents(0);

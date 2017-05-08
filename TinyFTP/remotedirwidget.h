@@ -44,6 +44,7 @@ private:
     QFileIconProvider provider;
     QStringList pendingDirs;
 	QQueue<qint64> filesSize;
+    QStringList filesModifyDate;
     QString currentDir;
     QString currentLocalDir;
 	QMutex mutex;

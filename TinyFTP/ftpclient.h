@@ -23,6 +23,8 @@ public:
     int	remove(const QString & file);
     int	rename(const QString & oldname, const QString & newname);
     int	rmdir(const QString & dir);
+    QString encoded(const QString &str);
+    QString decoded(const QString &str);
     public slots:
         void stateChanged(int state);
 private:

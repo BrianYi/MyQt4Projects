@@ -96,6 +96,9 @@ bool DirTreeModel::setData(const QModelIndex & index, const QVariant & value, in
     if (index.column() == 1 && role == Qt::EditRole) {
         fileNode->fileSize = value.toLongLong();
         return true;
+    } else if (index.column() == 3 && role == Qt::EditRole) {
+        fileNode->modifyDate = value.toString();
+        return true;
     }
     return false;
 }
