@@ -11,7 +11,6 @@ struct Node
 		isDir = false;
 		isSystemLink = false;
 		isFile = false;
-		parent = 0;
 	}
     ~Node()
     {
@@ -28,7 +27,6 @@ struct Node
     bool isDir;
     bool isSystemLink;
     bool isFile;
-	Node* parent;
     QList<Node*> children;
 };
 
@@ -56,8 +54,8 @@ public:
 	bool insertRow(int row, const QModelIndex & parent = QModelIndex());
     void setRootPath(const QString &path);
 	void sort(int column, Qt::SortOrder order /* = Qt::AscendingOrder */);
-// 	public slots:
-// 		void setRootIndex(const QModelIndex &index);
+	public slots:
+		void setRootIndex(const QModelIndex &index);
 private:
  /*   QList<QPair<QFileInfo, qint64>> files;*/
     Node *rootNode;

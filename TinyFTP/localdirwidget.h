@@ -16,7 +16,8 @@ public:
 private:
 	DirTreeModel *localDirTreeModel;
 	QTreeView *localDirTreeView;
-	DirTreeModel *localDirFileSystemModel;
+	QFileSystemModel *localDirFileSystemModel;
+	QTreeView *localDirComboTreeView;
 	QComboBox *localDirComboBox;
 	QToolButton *dotdotDirToolButton;
 	QToolButton *refreshDirToolButton;
