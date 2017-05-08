@@ -56,6 +56,8 @@ RemoteDirWidget::RemoteDirWidget(QWidget *parent)
     connect(remoteDirTreeView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(setRootIndex(const QModelIndex &)));
     connect(ftpClient, SIGNAL(listInfo(const QUrlInfo &)), this, SLOT(ftpListInfo(const QUrlInfo &)));
     connect(ftpClient, SIGNAL(done(bool)), this, SLOT(ftpDone(bool)));
+    connect(ftpClient, SIGNAL(commandFinished(int,bool)), this, SLOT(ftpCommandFinished(int,bool)));
+    connect(ftpClient, SIGNAL(commandStarted(int)), this, SLOT(ftpCommandStarted(int)));
 }
 
 RemoteDirWidget::~RemoteDirWidget()
@@ -96,7 +98,7 @@ bool RemoteDirWidget::getDirectory(const QString &address, const QString &port,
 //          return false;
 //     }
 
-    ftpClient->connectToHost(url.host(), url.port(21));
+    ftpClient->connectToHost(url.host(), port.toUShort());
     ftpClient->login(username, password);
 
     QString path = url.path();
@@ -199,4 +201,53 @@ void RemoteDirWidget::setRootIndex(const QModelIndex &index)
 	}
 	/*remoteDirTreeModel->set(index);*/
 // 	remoteDirTreeView->resizeColumnToContents(0);
+}
+
+void RemoteDirWidget::ftpCommandStarted(int)
+{
+    if (ftpClient->currentCommand() == QFtp::ConnectToHost) {
+        writeLog(tr("正在解析地址"));
+    } else if (ftpClient->currentCommand() == QFtp::Login) {
+        writeLog(tr("正在连接到"));
+    } else if (ftpClient->currentCommand() == QFtp::Close) {
+    } else if (ftpClient->currentCommand() == QFtp::List) {
+    } else if (ftpClient->currentCommand() == QFtp::Cd) {
+    } else if (ftpClient->currentCommand() == QFtp::Get) {
+    } else if (ftpClient->currentCommand() == QFtp::Put) {
+    } else if (ftpClient->currentCommand() == QFtp::Remove) {
+    } else if (ftpClient->currentCommand() == QFtp::Mkdir) {
+    } else if (ftpClient->currentCommand() == QFtp::Rmdir) {
+    } else if (ftpClient->currentCommand() == QFtp::Rename) {
+    }
+}
+
+void RemoteDirWidget::ftpCommandFinished(int,bool error)
+{
+    if (ftpClient->currentCommand() == QFtp::ConnectToHost) {
+        if (!error) {
+            writeLog(tr("解析完成"));
+        } else {
+            writeLog(tr("解析失败，") + ftpClient->errorString());
+        }
+    } else if (ftpClient->currentCommand() == QFtp::Login) {
+        if (!error) {
+            writeLog(tr("已连接到服务器，正在等待响应..."));
+        } else {
+            writeLog(tr("连接服务器失败，") + ftpClient->errorString());
+        }
+    } else if (ftpClient->currentCommand() == QFtp::Close) {
+        if (!error) {
+            writeLog(tr("已从服务器断开"));
+        } else {
+            writeLog(tr("无法断开连接，") + ftpClient->errorString());
+        }
+    } else if (ftpClient->currentCommand() == QFtp::List) {
+    } else if (ftpClient->currentCommand() == QFtp::Cd) {
+    } else if (ftpClient->currentCommand() == QFtp::Get) {
+    } else if (ftpClient->currentCommand() == QFtp::Put) {
+    } else if (ftpClient->currentCommand() == QFtp::Remove) {
+    } else if (ftpClient->currentCommand() == QFtp::Mkdir) {
+    } else if (ftpClient->currentCommand() == QFtp::Rmdir) {
+    } else if (ftpClient->currentCommand() == QFtp::Rename) {
+    }
 }

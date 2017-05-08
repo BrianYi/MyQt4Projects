@@ -21,6 +21,8 @@ public:
 	private slots:
         void ftpListInfo(const QUrlInfo &urlInfo);
         void ftpDone(bool error);
+        void ftpCommandFinished(int,bool error);
+        void ftpCommandStarted(int);
 		void setRootIndex(const QModelIndex &index);
 signals:
     void updateLoginInfo(const QString &usrname, 

@@ -60,6 +60,7 @@ LocalDirWidget::LocalDirWidget(QWidget *parent)
 	setWindowTitle(tr("本地"));
 	connect(localDirTreeView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(setRootIndex(const QModelIndex &)));
 	/*connect(localDirComboTreeView, SIGNAL())*/
+    connect(localDirComboBox, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(currentIndexChanged(const QString &)));
 }
 
 LocalDirWidget::~LocalDirWidget()
@@ -73,7 +74,27 @@ void LocalDirWidget::setRootIndex(const QModelIndex &index)
 	}
 	Node *node = static_cast<Node*>(index.internalPointer());
 	if (node->isDir) {
+        QString path = node->path;
 		localDirTreeModel->setRootIndex(index);
 		localDirTreeView->resizeColumnToContents(0);
+
+        //*******************************
+        // 这里的代码没有效果，不知为何
+        QModelIndex curIndex = localDirFileSystemModel->index(path);
+        localDirComboTreeView->collapseAll();
+        localDirComboTreeView->expand(curIndex);
+        localDirComboTreeView->reset();
 	}
+}
+
+void LocalDirWidget::currentIndexChanged(const QString &text)
+{
+    QModelIndex curIndex = localDirComboTreeView->currentIndex();
+    localDirComboTreeView->collapseAll();
+    localDirComboTreeView->expand(curIndex);
+    localDirComboTreeView->reset();
+/*    localDirComboTreeView->scrollTo(curIndex);*/
+
+    localDirTreeModel->setRootPath(localDirFileSystemModel->filePath(curIndex));
+    localDirTreeView->resizeColumnToContents(0);
 }

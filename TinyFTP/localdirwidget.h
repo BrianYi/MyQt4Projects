@@ -13,6 +13,7 @@ public:
 	~LocalDirWidget();
 	private slots:
 		void setRootIndex(const QModelIndex &index);
+        void currentIndexChanged(const QString &text);
 private:
 	DirTreeModel *localDirTreeModel;
 	QTreeView *localDirTreeView;
