@@ -25,10 +25,10 @@ public:
     int	rmdir(const QString & dir);
     QString encoded(const QString &str);
     QString decoded(const QString &str);
-    public slots:
-        void stateChanged(int state);
-private:
-    RemoteDirWidget *parentWidget;
+//     public slots:
+//         void stateChanged(int state);
+// private:
+//     RemoteDirWidget *parentWidget;
 };
 
 #endif // FTPCLIENT_H

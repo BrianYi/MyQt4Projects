@@ -6,6 +6,7 @@
 #include "dirtreemodel.h"
 #include "localdirwidget.h"
 #include "remotedirwidget.h"
+#include "tabwidget.h"
 
 class TinyFTP : public QMainWindow
 {
@@ -15,6 +16,7 @@ public:
 	TinyFTP(QWidget *parent = 0);
     public slots:
         void connectToFTPServer();
+		void ftpCommandDone(QFtp::Command command, bool error);
 protected:
 	void writeSettings();
 	void readSettings();
@@ -34,8 +36,8 @@ private:
 	QComboBox *addressComboBox;
 	QPushButton *goPushButton;
 
-	QTabWidget *localDirTabWidget;
-	QTabWidget *remoteDirTabWidget;
+	TabWidget *localDirTabWidget;
+	TabWidget *remoteDirTabWidget;
 
 	QSplitter *splitter;
 	QStatusBar *ftpStatusBar;

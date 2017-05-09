@@ -41,11 +41,13 @@ TinyFTP::TinyFTP(QWidget *parent)
 	addressInfoToolBar->addWidget(goPushButton);
 	addressInfoToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
 
-	localDirTabWidget = new QTabWidget(this);
+	localDirTabWidget = new TabWidget(this);
 	localDirTabWidget->addTab(new LocalDirWidget(this), tr("±¾µØ"));
 
-	remoteDirTabWidget = new QTabWidget(this);
+	remoteDirTabWidget = new TabWidget(this);
 	remoteDirTabWidget->addTab(new RemoteDirWidget(this), tr(" "));
+
+	/*remoteDirTabWidget->currentWidget()->setEnabled(false);*/
 
 	ftpStatusBar = statusBar();
 
@@ -61,8 +63,12 @@ TinyFTP::TinyFTP(QWidget *parent)
 
 	setWindowTitle(tr("TinyFTP"));
 
-    connect(goPushButton, SIGNAL(clicked()), this, SLOT(connectToFTPServer()));
-    connect(anonymousCheckBox, SIGNAL(stateChanged(int)), this, SLOT(anonymous(int)));
+    connect(goPushButton, SIGNAL(clicked()), 
+		this, SLOT(connectToFTPServer()));
+    connect(anonymousCheckBox, SIGNAL(stateChanged(int)), 
+		this, SLOT(anonymous(int)));
+// 	connect(remoteDirTabWidget->currentWidget(), SIGNAL(ftpCommandDone(QFtp::Command, bool)), 
+// 		this, SLOT(ftpCommandDone(QFtp::Command, bool)));
 }
 
 void TinyFTP::writeSettings()
@@ -119,8 +125,38 @@ void TinyFTP::connectToFTPServer()
         username = tr("");
         password = tr("");
     }
-    remoteDirTabWidget->setTabText(remoteDirTabWidget->currentIndex(), address);
-    remoteDirWidget->getDirectory(address, port, username, password);
+    /*remoteDirTabWidget->setTabText(remoteDirTabWidget->currentIndex(), address);*/
+    remoteDirWidget->connectToHost(address, port, username, password);
+	/*remoteDirWidget->setEnabled(true);*/
+}
+
+void TinyFTP::ftpCommandDone(QFtp::Command command, bool error)
+{
+	RemoteDirWidget *remoteDirWidget = static_cast<RemoteDirWidget*>(sender());
+	if (command == QFtp::ConnectToHost) {
+		if (!error) {
+			remoteDirTabWidget->setTabText(remoteDirTabWidget->currentIndex(), 
+				addressComboBox->currentText());
+		} else {
+			/*remoteDirWidget->setEnabled(false);*/
+		}
+	} else if (command == QFtp::Login) {
+		if (!error) {
+			/*remoteDirWidget->setEnabled(true);*/
+		} 
+		else {
+			/*remoteDirWidget->setEnabled(false);*/
+		}
+	} else if (command == QFtp::Close) {
+	} else if (command == QFtp::List) {
+	} else if (command == QFtp::Cd) {
+	} else if (command == QFtp::Get) {
+	} else if (command == QFtp::Put) {
+	} else if (command == QFtp::Remove) {
+	} else if (command == QFtp::Mkdir) {
+	} else if (command == QFtp::Rmdir) {
+	} else if (command == QFtp::Rename) {
+	}
 }
 
 bool TinyFTP::okToConnectToFTPServer()

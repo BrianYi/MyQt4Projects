@@ -89,6 +89,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_dirtreemodel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="tabwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_tabwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_tabwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="tinyftp.qrc">
@@ -110,6 +119,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="dirtreemodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tabwidget.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
