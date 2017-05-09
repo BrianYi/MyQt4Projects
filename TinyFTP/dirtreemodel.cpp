@@ -8,7 +8,9 @@ DirTreeModel::DirTreeModel(QObject *parent)
 
 DirTreeModel::~DirTreeModel()
 {
-
+    if (rootNode) {
+        delete rootNode;
+    }
 }
 
 int DirTreeModel::rowCount(const QModelIndex &parent /*= QModelIndex()*/) const

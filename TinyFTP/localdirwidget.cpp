@@ -78,7 +78,6 @@ LocalDirWidget::LocalDirWidget(QWidget *parent)
 	contextMenu->addAction(renameAction);
 	contextMenu->addAction(propertyAction);
 
-	setWindowTitle(tr("±¾µØ"));
 	connect(localDirTreeView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(setRootIndex(const QModelIndex &)));
 	/*connect(localDirComboTreeView, SIGNAL())*/
     connect(localDirComboBox, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(currentIndexChanged(const QString &)));

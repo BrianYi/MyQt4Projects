@@ -16,7 +16,7 @@ public:
 	~RemoteDirWidget();
 //     void setLoginInfo(const QString &port, const QString &address, 
 //         const QString &usrname = QString(), const QString &pwd = QString());
-    bool connectToHost(const QString &address, const QString &port, const QString &usrname = QString(), 
+    void connectToHost(const QString &address, const QString &port, const QString &usrname = QString(), 
         const QString &pwd = QString());
 protected:
 	void closeEvent(QCloseEvent *event);
@@ -35,7 +35,8 @@ signals:
 private:
 	void writeLog(const QString &logData);
     void processDirectory(const QString &dir);
-	DirTreeModel *remoteDirTreeModel;
+    bool delDir(const QString &path);
+	/*DirTreeModel *remoteDirTreeModel;*/
 	QTreeView *remoteDirTreeView;
 	QFileSystemModel *remoteDirFileSystemModel;
 	QTreeView *remoteDirComboTreeView;
@@ -55,6 +56,7 @@ private:
     QStringList pendingDirs;
 	QQueue<qint64> filesSize;
     QStringList filesModifyDate;
+    QString baseDir;
     QString currentDir;
     QString currentLocalDir;
 // 	QMenu *tabMenu;

@@ -125,7 +125,7 @@ void TinyFTP::connectToFTPServer()
         username = tr("");
         password = tr("");
     }
-    /*remoteDirTabWidget->setTabText(remoteDirTabWidget->currentIndex(), address);*/
+    remoteDirTabWidget->setTabText(remoteDirTabWidget->currentIndex(), address);
     remoteDirWidget->connectToHost(address, port, username, password);
 	/*remoteDirWidget->setEnabled(true);*/
 }
@@ -135,8 +135,8 @@ void TinyFTP::ftpCommandDone(QFtp::Command command, bool error)
 	RemoteDirWidget *remoteDirWidget = static_cast<RemoteDirWidget*>(sender());
 	if (command == QFtp::ConnectToHost) {
 		if (!error) {
-			remoteDirTabWidget->setTabText(remoteDirTabWidget->currentIndex(), 
-				addressComboBox->currentText());
+// 			remoteDirTabWidget->setTabText(remoteDirTabWidget->currentIndex(), 
+// 				addressComboBox->currentText());
 		} else {
 			/*remoteDirWidget->setEnabled(false);*/
 		}
