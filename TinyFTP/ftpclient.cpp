@@ -10,7 +10,9 @@ FTPClient::FTPClient(QObject *parent)
 
 FTPClient::~FTPClient()
 {
-
+    if (state() != QFtp::Unconnected) {
+        close();
+    }
 }
 
 int FTPClient::cd(const QString & dir)

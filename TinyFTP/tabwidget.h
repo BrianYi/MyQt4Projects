@@ -12,12 +12,14 @@ class TabWidget : public QTabWidget
 public:
 	TabWidget(QWidget *parent);
 	~TabWidget();
+    void setEnableMutiTab(bool);
 	public slots:
 		void newTab();
 		void closeTab();
 		void closeOtherTab();
 private:
-	TabBar *tabBar;
+    QTabBar *oldTabBar;
+	TabBar *newTabBar;
 	TinyFTP *parentTinyFtp;
 };
 

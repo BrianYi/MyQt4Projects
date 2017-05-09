@@ -14,6 +14,7 @@ class TinyFTP : public QMainWindow
 
 public:
 	TinyFTP(QWidget *parent = 0);
+    ~TinyFTP();
     public slots:
         void connectToFTPServer();
 		void ftpCommandDone(QFtp::Command command, bool error);

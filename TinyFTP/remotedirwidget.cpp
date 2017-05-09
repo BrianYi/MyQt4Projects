@@ -139,7 +139,6 @@ void RemoteDirWidget::connectToHost(const QString &address, const QString &port,
 //     if (!strAddress.startsWith(tr("ftp://"), Qt::CaseInsensitive)) {
 //         strAddress = tr("ftp://") + strAddress;
 //     }
-    baseDir = tr("cache") + QDir::separator() + address;
     urlAddress.setHost(strAddress);
 	urlAddress.setPort(port.toInt());
 	urlAddress.setUserName(username);
@@ -231,12 +230,11 @@ void RemoteDirWidget::ftpDone(bool error)
 // 			QDir::toNativeSeparators(QDir(currentLocalDir).canonicalPath()));
 // 	}
     DirTreeModel *dirTreeModel = static_cast<DirTreeModel*>(remoteDirTreeView->model());
-    if (!dirTreeModel) {
-        dirTreeModel = new DirTreeModel(this);
-    } else {
-        writeLog(tr("Error: memory leaking, file: %1, line: %2").arg(__FILE__).arg(__LINE__));
-        return ;
+    if (dirTreeModel) {
+        delete dirTreeModel;
     }
+    dirTreeModel = new DirTreeModel(this);
+
 	dirTreeModel->setRootPath(currentLocalDir);
     remoteDirTreeView->setModel(dirTreeModel);
 	remoteDirTreeView->resizeColumnToContents(0);
@@ -357,6 +355,7 @@ void RemoteDirWidget::ftpCommandFinished(int,bool error)
 			if (path.isEmpty()) {
 				path = QDir::separator();
 			}
+            baseDir = tr("cache") + QDir::separator() + urlAddress.host();
 			processDirectory(path);
 
 			connectButton->setText(tr("¶Ï¿ª"));
@@ -405,7 +404,6 @@ bool RemoteDirWidget::delDir(const QString &path)
     if (!dir.exists()) {
         return true;
     }
-    //QString absPath = dir.absolutePath();
     foreach (QFileInfo fileInfo, dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot)) {
         QString fileName = fileInfo.fileName();
         if (fileInfo.isDir()) {

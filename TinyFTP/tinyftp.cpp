@@ -42,10 +42,12 @@ TinyFTP::TinyFTP(QWidget *parent)
 	addressInfoToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
 
 	localDirTabWidget = new TabWidget(this);
+    localDirTabWidget->setEnableMutiTab(false);
 	localDirTabWidget->addTab(new LocalDirWidget(this), tr("±¾µØ"));
 
 	remoteDirTabWidget = new TabWidget(this);
-	remoteDirTabWidget->addTab(new RemoteDirWidget(this), tr(" "));
+	remoteDirTabWidget->setEnableMutiTab(true);
+    remoteDirTabWidget->addTab(new RemoteDirWidget(this), tr(" "));
 
 	/*remoteDirTabWidget->currentWidget()->setEnabled(false);*/
 
@@ -69,6 +71,11 @@ TinyFTP::TinyFTP(QWidget *parent)
 		this, SLOT(anonymous(int)));
 // 	connect(remoteDirTabWidget->currentWidget(), SIGNAL(ftpCommandDone(QFtp::Command, bool)), 
 // 		this, SLOT(ftpCommandDone(QFtp::Command, bool)));
+}
+
+TinyFTP::~TinyFTP()
+{
+
 }
 
 void TinyFTP::writeSettings()

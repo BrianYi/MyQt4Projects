@@ -7,8 +7,8 @@ TabWidget::TabWidget(QWidget *parent)
 {
 	parentTinyFtp = reinterpret_cast<TinyFTP*>(parent);
 
-	tabBar = new TabBar(this);
-	setTabBar(tabBar);
+    oldTabBar = new QTabBar(this);
+	newTabBar = new TabBar(this);
 }
 
 TabWidget::~TabWidget()
@@ -23,7 +23,8 @@ void TabWidget::newTab()
 
 void TabWidget::closeTab()
 {
-	removeTab(currentIndex());
+	/*removeTab(currentIndex());*/
+    delete currentWidget();
 }
 
 void TabWidget::closeOtherTab()
@@ -31,9 +32,18 @@ void TabWidget::closeOtherTab()
 	int curIndex = currentIndex();
 	for (int index = count() - 1; index >= 0; index--) {
 		if (index != curIndex) {
-			removeTab(index);
+			delete widget(index);
 		}
 	}
+}
+
+void TabWidget::setEnableMutiTab(bool enabled)
+{
+    if (enabled) {
+        setTabBar(newTabBar);
+    } else {
+        setTabBar(oldTabBar);
+    }
 }
 
 TabBar::TabBar(QWidget *parent)
