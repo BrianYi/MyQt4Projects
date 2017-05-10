@@ -18,6 +18,9 @@ public:
 //         const QString &usrname = QString(), const QString &pwd = QString());
     void connectToHost(const QString &address, const QString &port, const QString &usrname = QString(), 
         const QString &pwd = QString());
+	bool isConnected() const;
+	void upload(const QString &path);
+	QString currentDirPath() const;
 protected:
 	void closeEvent(QCloseEvent *event);
 	private slots:
@@ -27,6 +30,14 @@ protected:
         void ftpCommandStarted(int);
 		void setRootIndex(const QModelIndex &index);
 		void showContextMenu(const QModelIndex &index);
+		void download();
+		void queue();
+		void edit();
+		void read();
+		void changePermission();
+		void del();
+		void rename();
+		void property();
 signals:
     void updateLoginInfo(const QString &usrname, 
         const QString &pwd, const QString &port, 
@@ -34,7 +45,9 @@ signals:
 	void ftpCommandDone(QFtp::Command command, bool error);
 private:
 	void writeLog(const QString &logData);
-    void processDirectory(const QString &dir);
+    void listDirectoryFiles(const QString &dir);
+	void download(const QString &path);
+	void processDirectory();
     bool delDir(const QString &path);
 	/*DirTreeModel *remoteDirTreeModel;*/
 	QTreeView *remoteDirTreeView;
@@ -53,12 +66,16 @@ private:
 	QUrl urlAddress;
     FTPClient *ftpClient;
     QFileIconProvider provider;
-    QStringList pendingDirs;
 	QQueue<qint64> filesSize;
     QStringList filesModifyDate;
-    QString baseDir;
-    QString currentDir;
-    QString currentLocalDir;
+	
+    QString cacheDir;
+    QString currentListDir;
+    QString currentListLocalDir;
+
+	QString currentDownloadDir;
+	QString currentDownloadLocalDir;
+	QStringList pendingDownloadDirs;
 // 	QMenu *tabMenu;
 // 	QAction *newTabAction;
 // 	QAction *closeTabAction;
@@ -74,6 +91,8 @@ private:
 	QAction *renameAction;
 	QAction *propertyAction;
 	TinyFTP *parentTinyFtp;
+	FTPClient::Command currentCommand;
+	QList<QFile *> openedDownloadingFiles;
 };
 
 #endif // REMOTEDIRWIDGET_H

@@ -4,14 +4,17 @@
 #include <QtGui>
 #include "dirtreemodel.h"
 
+class TinyFTP;
 class LocalDirWidget : public QWidget
 {
 	Q_OBJECT
 
 public:
-	LocalDirWidget(QWidget *parent = 0);
+	LocalDirWidget(QWidget *parent);
 	~LocalDirWidget();
 	//void contextMenuEvent(QContextMenuEvent *event);
+	QDir currentDir(bool *ok = 0) const;
+	QString currentDirPath() const;
 	private slots:
 		void setRootIndex(const QModelIndex &index);
         void currentIndexChanged(const QString &text);
@@ -43,6 +46,7 @@ private:
 	QAction *delAction;
 	QAction *renameAction;
 	QAction *propertyAction;
+	TinyFTP *parentTinyFtp;
 };
 
 #endif // LOCALDIRWIDGET_H

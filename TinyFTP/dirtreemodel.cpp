@@ -133,7 +133,19 @@ void DirTreeModel::setRootPath(const QString &path)
     if (rootNode) {
         delete rootNode;
     }
-    rootNode = new Node;
+	{
+		QFileInfo fileInfo(path);
+		rootNode = new Node;
+		rootNode->fileName = fileInfo.fileName();
+		rootNode->fileIcon = provider.icon(fileInfo);
+		rootNode->fileSize = fileInfo.size();
+		rootNode->fileType = provider.type(fileInfo);
+		rootNode->modifyDate = fileInfo.lastModified().toString("yyyy/MM/dd hh:mm");
+		rootNode->isDir = fileInfo.isDir();
+		rootNode->isSystemLink = fileInfo.isSymLink();
+		rootNode->isFile = fileInfo.isFile();
+		rootNode->path = fileInfo.absoluteFilePath();
+	}
 
     foreach(QFileInfo fileInfo, rootPath.entryInfoList(QDir::NoDot | QDir::AllEntries, 
 		QDir::DirsFirst | QDir::IgnoreCase | QDir::Name)) {
@@ -194,6 +206,28 @@ void DirTreeModel::sort(int column, Qt::SortOrder order /* = Qt::AscendingOrder 
 		});
 		reset();
 	}
+}
+
+QDir DirTreeModel::currentDir(bool *ok/* = 0*/) const
+{
+	if (!rootNode) {
+		if (ok) {
+			*ok = false;
+		}
+		return QDir();
+	}
+	if (ok) {
+		*ok = true;
+	}
+	return QDir(rootNode->path);
+}
+
+QString DirTreeModel::currentDirPath() const
+{
+	if (!rootNode) {
+		return QString();
+	}
+	return rootNode->path;
 }
 
 void DirTreeModel::setRootIndex(const QModelIndex &index)

@@ -10,6 +10,18 @@ class FTPClient : public QFtp
     Q_OBJECT
 
 public:
+	enum Command { 
+		CMD_LIST,		// ÏÔÊ¾ÎÄ¼þ
+		CMD_DOWNLOAD,
+		CMD_UPLOAD,
+		CMD_QUEUE,
+		CMD_EDIT,
+		CMD_READ,
+		CMD_EXEC,
+		CMD_DEL,
+		CMD_RENAME,
+		CMD_PROPERTY
+	};
     FTPClient(QObject *parent = 0);
     ~FTPClient();
     int	cd( const QString & dir);

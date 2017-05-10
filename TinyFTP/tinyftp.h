@@ -13,6 +13,8 @@ class TinyFTP : public QMainWindow
 	Q_OBJECT
 
 public:
+	TabWidget *remoteDirTabWidget;
+	TabWidget *localDirTabWidget;
 	TinyFTP(QWidget *parent = 0);
     ~TinyFTP();
     public slots:
@@ -36,10 +38,6 @@ private:
 	QLabel *addressLabel;
 	QComboBox *addressComboBox;
 	QPushButton *goPushButton;
-
-	TabWidget *localDirTabWidget;
-	TabWidget *remoteDirTabWidget;
-
 	QSplitter *splitter;
 	QStatusBar *ftpStatusBar;
     QStringList addressList;

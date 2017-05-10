@@ -1,8 +1,11 @@
 #include "localdirwidget.h"
+#include "tinyftp.h"
 
 LocalDirWidget::LocalDirWidget(QWidget *parent)
 	: QWidget(parent)
 {
+	parentTinyFtp = reinterpret_cast<TinyFTP*>(parent);
+
 	localDirTreeModel = new DirTreeModel(this);
 	localDirTreeModel->setRootPath(QDir::currentPath());
 
@@ -99,6 +102,16 @@ LocalDirWidget::~LocalDirWidget()
 {
 }
 
+QDir LocalDirWidget::currentDir(bool *ok/* = 0*/) const
+{
+	return localDirTreeModel->currentDir(ok);
+}
+
+QString LocalDirWidget::currentDirPath() const
+{
+	return localDirTreeModel->currentDirPath();
+}
+
 // void LocalDirWidget::contextMenuEvent(QContextMenuEvent *event)
 // {
 // 	QModelIndex index = localDirTreeView->indexAt(QCursor::pos());
@@ -156,9 +169,31 @@ void LocalDirWidget::currentIndexChanged(const QString &text)
 void LocalDirWidget::showContextMenu(const QModelIndex &index)
 {
 	if (QApplication::mouseButtons() == Qt::RightButton) {
+		//*******************************
+		// 默认 使能 所有菜单项
 		QList<QAction*> actions = contextMenu->actions();
 		foreach (QAction* action, actions)
 			action->setEnabled(true);
+
+		//*******************************
+		// 处理 发送到 菜单
+		sendToAction->menu()->clear();
+		TabWidget *remoteDirTabWidget = parentTinyFtp->remoteDirTabWidget;
+		int count = remoteDirTabWidget->count();
+		for (int i = 0; i < count; i++) {
+			RemoteDirWidget *w = static_cast<RemoteDirWidget*>(remoteDirTabWidget->widget(i));
+			if (w->isConnected()) {
+				QAction *action = new QAction(remoteDirTabWidget->tabText(i), this);
+				sendToAction->menu()->addAction(action);
+				/*connect(action, SIGNAL(triggered()), this, SLOT(uploadFile()));*/
+			}
+		}
+
+		//*******************************
+		// 处理 所有上下文菜单的 使能 状态
+		if (!sendToAction->menu()->actions().count()) {
+			sendToAction->setEnabled(false);
+		}
 		Node *node = static_cast<Node*>(index.internalPointer());
 		QFileInfo fileInfo(node->path);
 		if (fileInfo.isDir() && node->fileName == tr("..")) {
@@ -178,6 +213,10 @@ void LocalDirWidget::showContextMenu(const QModelIndex &index)
 			}
 			if (!fileInfo.isExecutable()) {
 				execAction->setEnabled(false);
+			}
+			if (!static_cast<RemoteDirWidget*>(
+				remoteDirTabWidget->currentWidget())->isConnected()) {
+					uploadAction->setEnabled(false);
 			}
 		}
 

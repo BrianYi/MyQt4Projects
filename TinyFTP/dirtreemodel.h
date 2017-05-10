@@ -54,6 +54,8 @@ public:
 	bool insertRow(int row, const QModelIndex & parent = QModelIndex());
     void setRootPath(const QString &path);
 	void sort(int column, Qt::SortOrder order /* = Qt::AscendingOrder */);
+	QDir currentDir(bool *ok = 0) const;
+	QString currentDirPath() const;
 	public slots:
 		void setRootIndex(const QModelIndex &index);
 private:

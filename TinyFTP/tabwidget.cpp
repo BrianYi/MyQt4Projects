@@ -23,7 +23,6 @@ void TabWidget::newTab()
 
 void TabWidget::closeTab()
 {
-	/*removeTab(currentIndex());*/
     delete currentWidget();
 }
 
