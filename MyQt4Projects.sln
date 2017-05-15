@@ -85,6 +85,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tripplanner", "Tripplanner\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XmlStreamReader", "XmlStreamReader\XmlStreamReader.vcxproj", "{6FC9F290-AF11-4D79-B460-FFB04BE9777A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Candy", "Candy\Candy.vcxproj", "{7FB10CC6-012E-4E76-A9A5-5BC894CC8494}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -259,6 +261,10 @@ Global
 		{6FC9F290-AF11-4D79-B460-FFB04BE9777A}.Debug|Win32.Build.0 = Debug|Win32
 		{6FC9F290-AF11-4D79-B460-FFB04BE9777A}.Release|Win32.ActiveCfg = Release|Win32
 		{6FC9F290-AF11-4D79-B460-FFB04BE9777A}.Release|Win32.Build.0 = Release|Win32
+		{7FB10CC6-012E-4E76-A9A5-5BC894CC8494}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7FB10CC6-012E-4E76-A9A5-5BC894CC8494}.Debug|Win32.Build.0 = Debug|Win32
+		{7FB10CC6-012E-4E76-A9A5-5BC894CC8494}.Release|Win32.ActiveCfg = Release|Win32
+		{7FB10CC6-012E-4E76-A9A5-5BC894CC8494}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
