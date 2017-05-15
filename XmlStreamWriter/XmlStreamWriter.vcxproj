@@ -11,17 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="xmlstreamreader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="in1.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="xmlstreamreader.cpp" />
+    <ClCompile Include="xmlstreamwriter.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6FC9F290-AF11-4D79-B460-FFB04BE9777A}</ProjectGuid>
+    <ProjectGuid>{33202514-BC07-4B86-8799-5B0E1091E2B7}</ProjectGuid>
     <Keyword>Qt4VSv1.0</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
