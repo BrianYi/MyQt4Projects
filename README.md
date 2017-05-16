@@ -130,6 +130,11 @@
 * QFtp用法
 * QTreeView用法
 * 构造TreeModel用法
-#qftp
+## qftp
 * QFtp用法
-##
+## Tripplanner
+* QTcpSocket用法
+## XmlStreamReader
+* QXmlStreamReader用法
+## Domparser
+* QDomElement用法
