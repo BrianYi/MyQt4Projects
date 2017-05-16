@@ -195,7 +195,7 @@ void FtpWindow::connectToFtp()
     QUrl url(ftpServerLineEdit->text());
     if (!url.isValid() || url.scheme().toLower() != QLatin1String("ftp")) {
         ftp->connectToHost(ftpServerLineEdit->text(), 21);
-        ftp->login("brianyi", "123456");
+        ftp->login(/*"brianyi", "123456"*/);
     } else {
         ftp->connectToHost(url.host(), url.port(21));
 
