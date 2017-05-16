@@ -141,3 +141,7 @@
 * QDomElement用法
 ## SaxHandler
 * QXmlDefaultHandler用法
+## Candy
+* qss样式表的使用
+## Bronze
+* 子类化QStyle的使用
