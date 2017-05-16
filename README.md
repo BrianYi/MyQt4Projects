@@ -11,6 +11,7 @@
 * QTableWidget用法
 * QTableWidgetItem派生类用法
 * QSettings的用法
+![Spreadsheet运行图](https://github.com/BrianYi/MyQt4Projects/blob/master/images/spreadsheet.png)
 ## HexSpinBox
 * QRegExpValidator用法
 * QSpinBox用法
@@ -138,3 +139,5 @@
 * QXmlStreamReader用法
 ## Domparser
 * QDomElement用法
+## SaxHandler
+* QXmlDefaultHandler用法

@@ -24,55 +24,61 @@
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{fa46d07b-2e6a-4465-9cc5-4b3af46ad68b}</UniqueIdentifier>
+      <UniqueIdentifier>{127f7726-0614-4a02-9fdc-4d9b8f2d0eaf}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{225ff298-390e-4f7d-aa5a-7f0e467a1fc5}</UniqueIdentifier>
+      <UniqueIdentifier>{0b66c3c5-46f0-45c6-b9fc-16bff5d17247}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="candy.qrc">
+    <CustomBuild Include="bronze.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="candydialog.h">
+    <CustomBuild Include="bronzedialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="bronzestyle.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="qss\candy.qss">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="images\background.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\button.png">
+    <None Include="images\checkmark.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\button-hover.png">
+    <None Include="images\checkmark-disabled.png">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="images\button-pressed.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="images\down-arrow.png">
+    <None Include="images\checkmark-partial.png">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\qrc_candy.cpp">
+    <ClCompile Include="GeneratedFiles\qrc_bronze.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="candydialog.cpp">
+    <ClCompile Include="bronzedialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_candydialog.cpp">
+    <ClCompile Include="GeneratedFiles\Debug\moc_bronzedialog.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_candydialog.cpp">
+    <ClCompile Include="GeneratedFiles\Release\moc_bronzedialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="bronzestyle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_bronzestyle.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_bronzestyle.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
