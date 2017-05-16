@@ -1,5 +1,4 @@
 #include <QtGui>
-
 #include "candydialog.h"
 
 int main(int argc, char *argv[])

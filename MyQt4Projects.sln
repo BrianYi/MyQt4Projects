@@ -93,6 +93,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XmlStreamWriter", "XmlStrea
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Candy", "Candy\Candy.vcxproj", "{0371D4D3-8D14-4CFE-A54D-1A74A13A7E1D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bronze", "Bronze\Bronze.vcxproj", "{F50EED56-2C60-452B-9EFC-199DA9DC82DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -283,6 +285,10 @@ Global
 		{0371D4D3-8D14-4CFE-A54D-1A74A13A7E1D}.Debug|Win32.Build.0 = Debug|Win32
 		{0371D4D3-8D14-4CFE-A54D-1A74A13A7E1D}.Release|Win32.ActiveCfg = Release|Win32
 		{0371D4D3-8D14-4CFE-A54D-1A74A13A7E1D}.Release|Win32.Build.0 = Release|Win32
+		{F50EED56-2C60-452B-9EFC-199DA9DC82DE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F50EED56-2C60-452B-9EFC-199DA9DC82DE}.Debug|Win32.Build.0 = Debug|Win32
+		{F50EED56-2C60-452B-9EFC-199DA9DC82DE}.Release|Win32.ActiveCfg = Release|Win32
+		{F50EED56-2C60-452B-9EFC-199DA9DC82DE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
