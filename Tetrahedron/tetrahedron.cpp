@@ -123,8 +123,8 @@ int Tetrahedron::faceAtPosition(const QPoint &pos)
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    gluPickMatrix(GLdouble(pos.x()), GLdouble(viewport[3] - pos.y()),
-                  5.0, 5.0, viewport);
+    //gluPickMatrix(GLdouble(pos.x()), GLdouble(viewport[3] - pos.y()),
+    //              5.0, 5.0, viewport);
     GLfloat x = GLfloat(width()) / height();
     glFrustum(-x, x, -1.0, 1.0, 4.0, 15.0);
     draw();
