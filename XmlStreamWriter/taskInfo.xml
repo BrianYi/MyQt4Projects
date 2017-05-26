@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projects>
+    <project id="0">
+        <task id="0" name="task1" calcnode="127.0.0.1" progress="20" status="0" resultpath="c:\asdas"/>
+        <task id="1" name="task2" calcnode="127.0.0.2" progress="30" status="1" resultpath="d:\asd\asd"/>
+        <task id="2" name="task3" calcnode="127.0.0.3" progress="40" status="2" resultpath="e:\asd\ass"/>
+    </project>
+	<project id="1">
+        <task id="0" name="task1" calcnode="127.0.0.1" progress="20" status="0" resultpath="c:\asdas"/>
+        <task id="1" name="task2" calcnode="127.0.0.2" progress="30" status="1" resultpath="d:\asd\asd"/>
+        <task id="2" name="task3" calcnode="127.0.0.3" progress="40" status="2" resultpath="e:\asd\ass"/>
+    </project>
+	<project id="2">
+        <task id="0" name="task1" calcnode="127.0.0.1" progress="20" status="0" resultpath="c:\asdas"/>
+        <task id="1" name="task2" calcnode="127.0.0.2" progress="30" status="1" resultpath="d:\asd\asd"/>
+        <task id="2" name="task3" calcnode="127.0.0.3" progress="40" status="2" resultpath="e:\asd\ass"/>
+    </project>
+</projects>
